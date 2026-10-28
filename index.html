@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> ❤️ - 3D Endless Adventure Game</title>
+  <meta name="description"
+    content="A romantic 3D runner adventure game: help the boy run through magical paths, collect golden coins, overcome obstacles, and reach the girl waiting for him!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Three.js 3D Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+  <!-- 3D WebGL Canvas Container -->
+  <div id="game-container"></div>
+
+  <!-- In-game Notification Banners -->
+  <div id="alert-banner" class="alert-banner hidden">
+    <div class="alert-icon" id="alert-icon">⚠️</div>
+    <div class="alert-content">
+      <h3 id="alert-title">DANGER AHEAD!</h3>
+      <p id="alert-subtitle">Broken Bridge & Perilous Obstacles!</p>
+    </div>
+  </div>
+
+  <!-- Girl Calling Dialogue Callout (When near destination ~10-15m) -->
+  <div id="girl-callout" class="girl-callout hidden">
+    <div class="girl-callout-bubble">
+      <span class="callout-emoji">👧💖</span>
+      <span class="callout-text">"Ohh my love! Come fast, come fast! ❤️🏃‍♂️"</span>
+    </div>
+  </div>
+
+  <!-- Sunset Beach Embrace Dialogue Callout in Destination Scene -->
+  <div id="hug-callout" class="hug-callout hidden">
+    <div class="hug-box">
+      <div class="hug-line boy-hug">
+        <span class="hug-icon">🌅</span>
+        <span class="hug-msg">"I found you by the shore! ❤️"</span>
+      </div>
+      <div class="hug-line girl-hug">
+        <span class="hug-icon">🤗</span>
+        <span class="hug-msg">"I knew you'd come for me! ✨"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Coin Score Popups Container -->
+  <div id="floating-scores" class="floating-scores-container"></div>
+
+  <!-- HUD: Top Gameplay Bar -->
+  <header id="game-hud" class="hud-container hidden">
+    <div class="hud-left">
+      <div class="stat-pill coin-pill">
+        <span class="coin-icon">🪙</span>
+        <span id="hud-coins" class="stat-val">0</span>
+      </div>
+      <div class="stat-pill score-pill">
+        <span class="pill-label">SCORE</span>
+        <span id="hud-score" class="stat-val">0</span>
+      </div>
+      <div class="stat-pill diff-pill" id="hud-diff-pill" title="Current Difficulty Level">
+        <span id="hud-diff-badge" class="diff-badge-val">🟡 Medium</span>
+      </div>
+    </div>
+
+    <!-- Central Journey Progress Bar -->
+    <div class="hud-center">
+      <div class="progress-wrapper">
+        <div class="progress-marker boy-marker" id="progress-boy-icon">👦</div>
+        <div class="progress-bar-bg">
+          <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-marker girl-marker">👧❤️</div>
+      </div>
+      <div class="progress-info">
+        <span id="distance-text">0m / 500m</span>
+        <span id="journey-phase-text" class="phase-badge">Lush Valley</span>
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <button id="btn-audio-toggle" class="icon-btn" title="Toggle Music" aria-label="Toggle Audio">
+        <span id="audio-icon">🎵</span>
+      </button>
+      <button id="btn-sfx-toggle" class="icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+        <span id="sfx-icon">🔊</span>
+      </button>
+      <button id="btn-ai-info" class="icon-btn ai-badge-btn" title="Generative AI Insights" aria-label="AI Info">
+        <span>✨ AI Art</span>
+      </button>
+      <button id="btn-pause" class="icon-btn" title="Pause Game (Esc)" aria-label="Pause">
+        <span>⏸️</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Control Hints Footer (In-Game) -->
+  <div id="hud-controls-hint" class="controls-hint hidden">
+    <span><kbd>A</kbd> / <kbd>←</kbd> Left</span>
+    <span><kbd>D</kbd> / <kbd>→</kbd> Right</span>
+    <span><kbd>Space</kbd> / <kbd>↑</kbd> Jump</span>
+    <span><kbd>S</kbd> / <kbd>↓</kbd> Slide</span>
+    <span><kbd>Esc</kbd> Pause</span>
+  </div>
+
+  <!-- UI SCREEN 1: START SCREEN -->
+  <section id="screen-start" class="screen-overlay active">
+    <div class="start-card glass-panel">
+      <div class="title-glow-wrap">
+        <span class="badge-tag">✨ 3D ROMANTIC ADVENTURE</span>
+        <h1 class="game-title"><span class="heart-pulse">❤️</span></h1>
+      </div>
+
+      <p class="story-blurb">
+        Sprint across scenic 3D paths to reach the girl waiting on the sunset beach! Collect golden coins, leap over
+        canyon hurdles, and celebrate your reunion with a warm hug!
+      </p>
+
+      <!-- Theme Selector -->
+      <div class="theme-picker-section">
+        <span class="theme-title">Choose Journey Theme (AI Generated):</span>
+        <div class="theme-options">
+          <button class="theme-chip active" data-theme="forest">
+            <span class="chip-dot" style="background:#4ade80;"></span>
+            <span>🌳 Magical Forest</span>
+          </button>
+          <button class="theme-chip" data-theme="sunset">
+            <span class="chip-dot" style="background:#fb923c;"></span>
+            <span>🌅 Golden Sunset</span>
+          </button>
+          <button class="theme-chip" data-theme="destination">
+            <span class="chip-dot" style="background:#f472b6;"></span>
+            <span>🌸 Twilight Garden</span>
+          </button>
+          <button class="theme-chip" data-theme="beach">
+            <span class="chip-dot" style="background:#38bdf8;"></span>
+            <span>🌊 Sunset Beach</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Difficulty Level Picker -->
+      <div class="difficulty-picker-section">
+        <div class="picker-header-row">
+          <span class="theme-title">⚡ Select Difficulty Level:</span>
+          <span id="diff-description" class="diff-desc-text">🟡 Medium: Balanced speed & hurdles (1.5x Score)</span>
+        </div>
+        <div class="difficulty-options">
+          <button class="diff-chip" data-diff="easy" title="Relaxed speed, wider gaps, forgiving jumps">
+            <span class="diff-dot" style="background:#4ade80;"></span>
+            <span>🟢 Easy Mode</span>
+          </button>
+          <button class="diff-chip active" data-diff="medium" title="Classic runner speed & balanced obstacles">
+            <span class="diff-dot" style="background:#facc15;"></span>
+            <span>🟡 Medium Mode</span>
+          </button>
+          <button class="diff-chip" data-diff="high" title="Fast sprint, dense obstacles, 2.5x Score Bonus!">
+            <span class="diff-dot" style="background:#f87171;"></span>
+            <span>🔴 High Level</span>
+            <span class="diff-bonus-tag">2.5x Score 🔥</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls Card Preview -->
+      <div class="controls-guide-grid">
+        <div class="guide-item">
+          <div class="keys-row"><kbd>A</kbd> or <kbd>←</kbd></div>
+          <span class="guide-text">Move Left Lane</span>
+        </div>
+        <div class="guide-item">
+          <div class="keys-row"><kbd>D</kbd> or <kbd>→</kbd></div>
+          <span class="guide-text">Move Right Lane</span>
+        </div>
+        <div class="guide-item">
+          <div class="keys-row"><kbd>Space</kbd> or <kbd>↑</kbd></div>
+          <span class="guide-text">Jump Obstacles</span>
+        </div>
+        <div class="guide-item">
+          <div class="keys-row"><kbd>S</kbd> or <kbd>↓</kbd></div>
+          <span class="guide-text">Slide / Duck</span>
+        </div>
+      </div>
+
+      <div class="cta-actions">
+        <button id="btn-start-game" class="btn-primary pulse-btn">
+          <span>Start Journey</span>
+          <span class="btn-arrow">➔</span>
+        </button>
+      </div>
+
+      <div class="bottom-footnote">
+        <span>🎮 Built with Three.js & Web Audio API &bull; 🤖 Generative AI Environment Pipeline</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI SCREEN 2: PAUSE SCREEN -->
+  <section id="screen-pause" class="screen-overlay hidden">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <span class="modal-badge">GAME PAUSED</span>
+        <h2>Take a Breath 🌿</h2>
+        <p>The boy is resting. She is still waiting patiently for you!</p>
+      </div>
+
+      <div class="pause-stats">
+        <div class="stat-mini">
+          <span class="stat-mini-label">Coins Collected</span>
+          <span id="pause-coins" class="stat-mini-val">0</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Current Score</span>
+          <span id="pause-score" class="stat-mini-val">0</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Progress</span>
+          <span id="pause-progress" class="stat-mini-val">0%</span>
+        </div>
+      </div>
+
+      <!-- Difficulty Switcher inside Pause Screen -->
+      <div class="pause-diff-section">
+        <span class="pause-diff-label">Change Difficulty:</span>
+        <div class="difficulty-options mini-options">
+          <button class="diff-chip mini" data-diff="easy">🟢 Easy</button>
+          <button class="diff-chip mini active" data-diff="medium">🟡 Medium</button>
+          <button class="diff-chip mini" data-diff="high">🔴 High (2.5x)</button>
+        </div>
+      </div>
+
+      <!-- Theme Switcher inside Pause Screen -->
+      <div class="pause-theme-section">
+        <span class="pause-diff-label">Change Theme:</span>
+        <div class="theme-options mini-options">
+          <button class="theme-chip mini active" data-theme="forest">🌳 Forest</button>
+          <button class="theme-chip mini" data-theme="sunset">🌅 Sunset</button>
+          <button class="theme-chip mini" data-theme="destination">🌸 Twilight</button>
+          <button class="theme-chip mini" data-theme="beach">🌊 Beach</button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-resume" class="btn-primary">
+          <span>Resume Journey</span>
+        </button>
+        <button id="btn-pause-restart" class="btn-secondary">
+          <span>Restart</span>
+        </button>
+        <button id="btn-pause-home" class="btn-secondary">
+          <span>🏠 Home</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI SCREEN 3: GAME OVER SCREEN -->
+  <section id="screen-gameover" class="screen-overlay hidden">
+    <div class="modal-card glass-panel gameover-panel">
+      <div class="modal-header">
+        <div class="gameover-icon">💔</div>
+        <h2>Stumbled on the Path</h2>
+        <p>The journey was tough, but true love never gives up! Dust yourself off and try again.</p>
+      </div>
+
+      <div class="summary-stats-grid">
+        <div class="summary-box">
+          <span class="summary-box-icon">🪙</span>
+          <span class="summary-box-label">Coins</span>
+          <span id="gameover-coins" class="summary-box-val">0</span>
+        </div>
+        <div class="summary-box">
+          <span class="summary-box-icon">⭐</span>
+          <span class="summary-box-label">Score</span>
+          <span id="gameover-score" class="summary-box-val">0</span>
+        </div>
+        <div class="summary-box">
+          <span class="summary-box-icon">🏃</span>
+          <span class="summary-box-label">Distance</span>
+          <span id="gameover-distance" class="summary-box-val">0m</span>
+        </div>
+      </div>
+
+      <div class="gameover-diff-info">
+        <span>Played on: <strong id="gameover-diff-text">🟡 Medium Mode</strong></span>
+        <button id="btn-switch-easy" class="btn-text-link">💡 Switch to Easy Mode?</button>
+      </div>
+
+      <div class="modal-actions vertical-actions">
+        <button id="btn-restart" class="btn-primary pulse-btn">
+          <span>Try Again ❤️</span>
+        </button>
+        <button id="btn-gameover-home" class="btn-secondary">
+          <span>🏠 Go to Home Page</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI SCREEN 4: VICTORY / DESTINATION COMPLETED SCREEN -->
+  <section id="screen-victory" class="screen-overlay hidden">
+    <div class="modal-card glass-panel victory-panel">
+      <div class="confetti-particles" id="confetti-container"></div>
+
+      <div class="modal-header">
+        <div class="victory-icon-wrap">
+          <span class="floating-heart">💖</span>
+          <span class="couple-emojis">👦🤗👧</span>
+          <span class="floating-heart">💖</span>
+        </div>
+        <h2 class="victory-title">Together by the Sunset Shore ❤️🌊</h2>
+        <div class="victory-diff-badge" id="victory-diff-badge">
+          <span id="victory-diff-text">🏆 Conquered on 🟡 Medium Mode (1.5x Score Multiplier)</span>
+        </div>
+        <p class="victory-story">
+          Through rolling valleys and dangerous canyon bridges, his journey led him straight into her arms. Standing
+          together by the golden sunset waves, held close in a breathless, laughing embrace on the warm sand. Together
+          forever.
+        </p>
+      </div>
+
+      <div class="summary-stats-grid">
+        <div class="summary-box highlight">
+          <span class="summary-box-icon">🪙</span>
+          <span class="summary-box-label">Coins Collected</span>
+          <span id="victory-coins" class="summary-box-val">0</span>
+        </div>
+        <div class="summary-box highlight">
+          <span class="summary-box-icon">🏆</span>
+          <span class="summary-box-label">Final Score</span>
+          <span id="victory-score" class="summary-box-val">0</span>
+        </div>
+        <div class="summary-box highlight">
+          <span class="summary-box-icon">⏱️</span>
+          <span class="summary-box-label">Journey Time</span>
+          <span id="victory-time" class="summary-box-val">0s</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-play-again" class="btn-primary pulse-btn">
+          <span>Play Again ❤️</span>
+        </button>
+        <button id="btn-victory-home" class="btn-secondary">
+          <span>🏠 Go to Home Page</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI SCREEN 5: GENERATIVE AI MODAL -->
+  <div id="modal-ai-info" class="screen-overlay hidden ai-modal-overlay">
+    <div class="modal-card glass-panel ai-modal-content">
+      <div class="modal-header">
+        <span class="modal-badge ai-badge">COLLEGE PROJECT &bull; GENERATIVE AI</span>
+        <h2>Generative AI Art Architecture 🤖🎨</h2>
+        <p>How PyTorch & Generative Models power the visual environments in this game</p>
+      </div>
+
+      <div class="ai-body-scroll">
+        <div class="ai-info-card">
+          <h4>1. What is Generative AI?</h4>
+          <p>
+            Unlike traditional computer graphics that rely strictly on hand-crafted 2D/3D textures, Generative AI models
+            learn rich mathematical probability distributions of imagery. Given a natural language description (text
+            prompt), the AI models sample from this high-dimensional latent space to synthesize completely novel,
+            photorealistic or stylized artwork.
+          </p>
+        </div>
+
+        <div class="ai-info-card">
+          <h4>2. Model Architecture: Diffusion vs. GANs</h4>
+          <p>
+            This project is designed around <strong>Latent Diffusion Models (LDMs)</strong> via PyTorch and Hugging Face
+            <code>diffusers</code>. Diffusion models work through a two-step mathematical process:
+          </p>
+          <ul>
+            <li><strong>Forward Process (Markov chain):</strong> Gradually adds Gaussian noise to training images until
+              they resemble pure noise.</li>
+            <li><strong>Reverse Denoising (Neural U-Net):</strong> Guided by text prompt embeddings (via a CLIP text
+              encoder), the network predicts and subtracts noise step-by-step to unveil a pristine fantasy landscape.
+            </li>
+          </ul>
+        </div>
+
+        <div class="ai-info-card">
+          <h4>3. Role of PyTorch & Python Backend</h4>
+          <p>
+            The dedicated module in <code>ai_model/generate_art.py</code> utilizes <strong>PyTorch</strong> (tensors,
+            CUDA GPU acceleration, automatic differentiation) to run pretrained diffusion pipelines (such as SD-Turbo or
+            Stable Diffusion v1.5). Generated assets are saved directly into <code>assets/generated/</code> and mapped
+            onto the 3D skybox and scenic horizon cylinders.
+          </p>
+        </div>
+
+        <div class="ai-gallery">
+          <h4>Active Generated Assets</h4>
+          <div class="ai-thumbnails">
+            <div class="ai-thumb-card">
+              <img src="assets/images/magical_forest_path.jpg" alt="Forest Path">
+              <span>Magical Forest Path</span>
+            </div>
+            <div class="ai-thumb-card">
+              <img src="assets/images/golden_sunset_garden.jpg" alt="Sunset Garden">
+              <span>Golden Sunset Garden</span>
+            </div>
+            <div class="ai-thumb-card">
+              <img src="assets/images/fantasy_destination_scene.jpg" alt="Destination Scene">
+              <span>Destination Gazebo</span>
+            </div>
+            <div class="ai-thumb-card">
+              <img src="assets/images/sunset_beach_backdrop.jpg" alt="Sunset Beach">
+              <span>Sunset Beach Shore</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-close-ai-info" class="btn-primary">
+          <span>Back to Game</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Logic Script -->
+  <script src="game.js"></script>
+</body>
+
+</html>
