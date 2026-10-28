@@ -133,7 +133,7 @@ html, body {
 .start-card {
   max-width: 630px;
   width: 100%;
-  max-height: calc(100vh - 24px);
+  max-height: calc(100vh - 46px);
   padding: 18px 24px 16px 24px;
   text-align: center;
   display: flex;
@@ -632,12 +632,6 @@ kbd {
   transition: all var(--transition-fast);
 }
 
-.bottom-footnote {
-  font-size: 0.68rem;
-  color: #64748b;
-  margin-top: -3px;
-}
-
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 12px 30px rgba(255, 77, 109, 0.6);
@@ -676,8 +670,49 @@ kbd {
 }
 
 .bottom-footnote {
-  font-size: 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.footnote-tech {
+  font-size: 0.74rem;
   color: #94a3b8;
+  letter-spacing: 0.2px;
+}
+
+.copyright-notice {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+.screen-bottom-footer {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.74rem;
+  color: rgba(203, 213, 225, 0.75);
+  letter-spacing: 0.4px;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.modal-copyright {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 10px;
+  letter-spacing: 0.3px;
+  opacity: 0.85;
 }
 
 /* ==========================================================================
