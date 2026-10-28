@@ -1,0 +1,21 @@
+{
+  "name": "journey-to-her",
+  "version": "1.0.0",
+  "description": "The Journey to Her - A 3D Browser Endless-Runner Adventure Game with Generative AI Art",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "threejs",
+    "webgl",
+    "game",
+    "3d",
+    "endless-runner",
+    "generative-ai",
+    "webaudio"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

@@ -14,12 +14,13 @@
   --color-text-muted: #e2e8f0;
   --color-bg-dark: #0f172a;
   
-  --glass-bg: rgba(20, 24, 38, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  --glass-bg: rgba(15, 23, 42, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.1) inset;
   
-  --font-heading: 'Fredoka', cursive, -apple-system, sans-serif;
-  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Cinzel', 'Outfit', -apple-system, Georgia, serif;
+  --font-display: 'Outfit', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   
   --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -162,17 +163,24 @@ html, body {
   border-radius: 50px;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  backdrop-filter: blur(8px);
   margin-bottom: 2px;
 }
 
 .game-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4.5vw, 3rem);
-  font-weight: 700;
-  line-height: 1;
-  margin: 2px auto 0 auto;
+  font-size: clamp(1.85rem, 4.0vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  margin: 4px auto 0 auto;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 25%, #fed7aa 65%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 14px rgba(244, 63, 94, 0.4));
 }
 
 .heart-pulse {

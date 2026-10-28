@@ -607,103 +607,103 @@
   const THEME_CONFIG = {
     forest: {
       id: 'forest',
-      name: 'Magical Forest',
-      badge: '🌳 Magical Forest',
-      tagline: 'Lush green valleys, emerald canopies & dancing fireflies',
-      skyColor: 0x87ceeb,
-      fogColor: 0x87ceeb,
-      fogDensity: 0.011,
-      ambientColor: 0xfff1e6,
-      ambientIntensity: 0.75,
-      sunColor: 0xfffaed,
-      sunIntensity: 0.95,
-      hemiSky: 0x87ceeb,
-      hemiGround: 0x2d6a4f,
-      roadColor: 0xc0a080,
-      curbColor: 0xa8896c,
-      grassColor: 0x2d6a4f,
-      treeTrunkColor: 0x5c3d2e,
-      foliageColor: 0x22c55e,
-      flowerColors: [0xff4d6d, 0xffea00],
-      riverColor: 0x1d4ed8,
+      name: 'Nordic Pine Valley',
+      badge: '🌲 Nordic Pine Valley',
+      tagline: 'Misty alpine highlands, towering spruce pines & ancient stone paths',
+      skyColor: 0x64748b,
+      fogColor: 0x94a3b8,
+      fogDensity: 0.009,
+      ambientColor: 0xe2e8f0,
+      ambientIntensity: 0.8,
+      sunColor: 0xfffbeb,
+      sunIntensity: 1.25,
+      hemiSky: 0x93c5fd,
+      hemiGround: 0x1f2937,
+      roadColor: 0x334155,
+      curbColor: 0x475569,
+      grassColor: 0x1e3a2b,
+      treeTrunkColor: 0x2e1e16,
+      foliageColor: 0x143423,
+      flowerColors: [0xef4444, 0xfbbf24],
+      riverColor: 0x1e3a5f,
       imagePath: 'assets/images/magical_forest_path.jpg',
-      accentColor: '#4ade80',
-      skyGradient: ['#0284c7', '#38bdf8', '#bae6fd']
+      accentColor: '#34d399',
+      skyGradient: ['#0f172a', '#1e293b', '#334155', '#64748b', '#94a3b8']
     },
     sunset: {
       id: 'sunset',
-      name: 'Golden Sunset',
-      badge: '🌅 Golden Sunset',
-      tagline: 'Warm terracotta stone, golden leaves & amber skies',
-      skyColor: 0xf97316,
-      fogColor: 0xf4a261,
-      fogDensity: 0.010,
-      ambientColor: 0xffdab9,
+      name: 'Golden Hour Ridge',
+      badge: '🌅 Golden Hour Ridge',
+      tagline: 'Warm terracotta stone, dramatic amber shadows & sunlit valleys',
+      skyColor: 0x9a3412,
+      fogColor: 0xd97706,
+      fogDensity: 0.008,
+      ambientColor: 0xffedd5,
       ambientIntensity: 0.85,
       sunColor: 0xfb923c,
-      sunIntensity: 1.15,
+      sunIntensity: 1.35,
       hemiSky: 0xfb923c,
-      hemiGround: 0x78350f,
-      roadColor: 0xd4a373,
-      curbColor: 0xa76b3f,
-      grassColor: 0x606c38,
-      treeTrunkColor: 0x4a2810,
-      foliageColor: 0xf97316,
-      flowerColors: [0xfbbf24, 0xf97316],
-      riverColor: 0xea580c,
+      hemiGround: 0x451a03,
+      roadColor: 0x574136,
+      curbColor: 0x78350f,
+      grassColor: 0x45351a,
+      treeTrunkColor: 0x301b10,
+      foliageColor: 0x9a3412,
+      flowerColors: [0xf59e0b, 0xd97706],
+      riverColor: 0x92400e,
       imagePath: 'assets/images/golden_sunset_garden.jpg',
       accentColor: '#fb923c',
-      skyGradient: ['#431407', '#9a3412', '#ea580c', '#fde047']
+      skyGradient: ['#180802', '#431407', '#9a3412', '#d97706', '#fef08a']
     },
     destination: {
       id: 'destination',
-      name: 'Twilight Garden',
-      badge: '🌸 Twilight Garden',
-      tagline: 'Mystic lilac meadows, cherry blossom blooms & soft twilight',
-      skyColor: 0x7e22ce,
-      fogColor: 0xa855f7,
-      fogDensity: 0.010,
-      ambientColor: 0xf3e8ff,
-      ambientIntensity: 0.80,
-      sunColor: 0xe879f9,
-      sunIntensity: 1.0,
-      hemiSky: 0xc084fc,
-      hemiGround: 0x3b1c4e,
-      roadColor: 0xd8b4e2,
-      curbColor: 0x9d7a96,
-      grassColor: 0x3b1c4e,
-      treeTrunkColor: 0x2e1065,
-      foliageColor: 0xf472b6,
-      flowerColors: [0xf472b6, 0xe879f9],
-      riverColor: 0x6366f1,
+      name: 'Twilight Blossom Meadow',
+      badge: '🌸 Twilight Blossom Meadow',
+      tagline: 'Mystic blue-hour twilight, deep slate riverbed & cherry blossom canopies',
+      skyColor: 0x1e1b4b,
+      fogColor: 0x312e81,
+      fogDensity: 0.0085,
+      ambientColor: 0xe0e7ff,
+      ambientIntensity: 0.72,
+      sunColor: 0xc084fc,
+      sunIntensity: 0.95,
+      hemiSky: 0x6366f1,
+      hemiGround: 0x17153a,
+      roadColor: 0x334155,
+      curbColor: 0x475569,
+      grassColor: 0x1e1b3a,
+      treeTrunkColor: 0x181028,
+      foliageColor: 0x9d174d,
+      flowerColors: [0xf472b6, 0xc084fc],
+      riverColor: 0x312e81,
       imagePath: 'assets/images/fantasy_destination_scene.jpg',
-      accentColor: '#f472b6',
-      skyGradient: ['#1e1b4b', '#581c87', '#a21caf', '#f472b6']
+      accentColor: '#c084fc',
+      skyGradient: ['#090818', '#1e1b4b', '#3730a3', '#581c87', '#be185d']
     },
     beach: {
       id: 'beach',
-      name: 'Sunset Beach',
-      badge: '🌊 Sunset Beach',
-      tagline: 'Warm ocean breezes, sandy coastal dunes & glowing waves',
-      skyColor: 0x0284c7,
+      name: 'Sunset Shore Coastline',
+      badge: '🌊 Sunset Shore Coastline',
+      tagline: 'Golden sun rays, wet reflective sand shore & breaking oceanic waves',
+      skyColor: 0x0369a1,
       fogColor: 0x38bdf8,
-      fogDensity: 0.009,
-      ambientColor: 0xffeedd,
-      ambientIntensity: 0.85,
-      sunColor: 0xfb7185,
-      sunIntensity: 1.1,
+      fogDensity: 0.0075,
+      ambientColor: 0xfff7ed,
+      ambientIntensity: 0.9,
+      sunColor: 0xf43f5e,
+      sunIntensity: 1.25,
       hemiSky: 0x38bdf8,
-      hemiGround: 0xd97706,
-      roadColor: 0xf5deb3,
-      curbColor: 0xd4a373,
-      grassColor: 0xe9c46a,
-      treeTrunkColor: 0x78350f,
-      foliageColor: 0x10b981,
-      flowerColors: [0xfb7185, 0x38bdf8],
-      riverColor: 0x06b6d4,
+      hemiGround: 0x78350f,
+      roadColor: 0xd4a373,
+      curbColor: 0xa16207,
+      grassColor: 0xca8a04,
+      treeTrunkColor: 0x451a03,
+      foliageColor: 0x065f46,
+      flowerColors: [0xf43f5e, 0x38bdf8],
+      riverColor: 0x0e7490,
       imagePath: 'assets/images/sunset_beach_backdrop.jpg',
       accentColor: '#38bdf8',
-      skyGradient: ['#0c4a6e', '#0284c7', '#38bdf8', '#fb7185']
+      skyGradient: ['#082f49', '#0369a1', '#0ea5e9', '#fb7185', '#fef08a']
     }
   };
 
@@ -779,17 +779,74 @@
       this.selectedTheme = 'forest';
 
       // Shared theme-adaptive materials for track, ground, foliage, and water
+      // Initialize Procedural PBR Textures
+      this.procTextures = this.createProceduralTextures();
+
+      // Shared theme-adaptive materials for track, ground, foliage, and water (PBR Standard)
       this.trackMaterials = {
-        road: new THREE.MeshLambertMaterial({ color: 0xc0a080 }),
-        curb: new THREE.MeshLambertMaterial({ color: 0xa8896c }),
-        grass: new THREE.MeshLambertMaterial({ color: 0x2d6a4f }),
-        treeTrunk: new THREE.MeshLambertMaterial({ color: 0x5c3d2e }),
-        foliage: new THREE.MeshLambertMaterial({ color: 0x22c55e }),
-        river: new THREE.MeshLambertMaterial({ color: 0x1d4ed8, transparent: true, opacity: 0.85 }),
-        bridge: new THREE.MeshLambertMaterial({ color: 0x5c4033 }),
-        post: new THREE.MeshLambertMaterial({ color: 0x3d2817 }),
-        flower1: new THREE.MeshLambertMaterial({ color: 0xff4d6d }),
-        flower2: new THREE.MeshLambertMaterial({ color: 0xffea00 })
+        road: new THREE.MeshStandardMaterial({
+          color: 0x334155,
+          map: this.procTextures.road,
+          roughness: 0.85,
+          metalness: 0.06
+        }),
+        curb: new THREE.MeshStandardMaterial({
+          color: 0x475569,
+          roughness: 0.88,
+          metalness: 0.05
+        }),
+        grass: new THREE.MeshStandardMaterial({
+          color: 0x1e3a2b,
+          map: this.procTextures.ground,
+          roughness: 0.94,
+          metalness: 0.02
+        }),
+        treeTrunk: new THREE.MeshStandardMaterial({
+          color: 0x2e1e16,
+          map: this.procTextures.bark,
+          roughness: 0.90,
+          metalness: 0.02
+        }),
+        foliage: new THREE.MeshStandardMaterial({
+          color: 0x143423,
+          roughness: 0.78,
+          metalness: 0.03
+        }),
+        river: new THREE.MeshStandardMaterial({
+          color: 0x1e3a5f,
+          roughness: 0.12,
+          metalness: 0.28,
+          transparent: true,
+          opacity: 0.88
+        }),
+        bridge: new THREE.MeshStandardMaterial({
+          color: 0x4a3525,
+          map: this.procTextures.wood,
+          roughness: 0.82,
+          metalness: 0.05
+        }),
+        post: new THREE.MeshStandardMaterial({
+          color: 0x332215,
+          map: this.procTextures.wood,
+          roughness: 0.85,
+          metalness: 0.05
+        }),
+        rock: new THREE.MeshStandardMaterial({
+          color: 0x57534e,
+          map: this.procTextures.rock,
+          roughness: 0.88,
+          metalness: 0.05
+        }),
+        flower1: new THREE.MeshStandardMaterial({
+          color: 0xef4444,
+          roughness: 0.65,
+          metalness: 0.05
+        }),
+        flower2: new THREE.MeshStandardMaterial({
+          color: 0xfbbf24,
+          roughness: 0.65,
+          metalness: 0.05
+        })
       };
 
       // Animation parameters
@@ -858,42 +915,210 @@
     initThree() {
       // Scene
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color(0x87ceeb);
-      this.scene.fog = new THREE.FogExp2(0x87ceeb, 0.012);
+      this.scene.background = new THREE.Color(0x64748b);
+      this.scene.fog = new THREE.FogExp2(0x94a3b8, 0.009);
 
       // Camera
       const aspect = window.innerWidth / window.innerHeight;
-      this.camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 800);
-      this.camera.position.set(0, 4.2, 7.5);
-      this.camera.lookAt(0, 1.5, -2);
+      this.camera = new THREE.PerspectiveCamera(58, aspect, 0.1, 800);
+      this.camera.position.set(0, 4.0, 7.5);
+      this.camera.lookAt(0, 1.45, -2);
 
-      // WebGL Renderer
+      // WebGL Renderer with High-Fidelity PBR & ACES Filmic Tone Mapping
       this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.renderer.outputEncoding = THREE.sRGBEncoding;
+      this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      this.renderer.toneMappingExposure = 1.12;
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       this.container.appendChild(this.renderer.domElement);
 
-      // Lighting
-      this.ambientLight = new THREE.AmbientLight(0xfff1e6, 0.7);
+      // Natural Atmospheric Lighting
+      this.ambientLight = new THREE.AmbientLight(0xe2e8f0, 0.8);
       this.scene.add(this.ambientLight);
 
-      this.sunLight = new THREE.DirectionalLight(0xfffaed, 0.9);
-      this.sunLight.position.set(20, 40, 20);
+      this.sunLight = new THREE.DirectionalLight(0xfffbeb, 1.25);
+      this.sunLight.position.set(24, 48, 22);
       this.sunLight.castShadow = true;
-      this.sunLight.shadow.mapSize.width = 1024;
-      this.sunLight.shadow.mapSize.height = 1024;
+      this.sunLight.shadow.mapSize.width = 2048;
+      this.sunLight.shadow.mapSize.height = 2048;
       this.sunLight.shadow.camera.near = 0.5;
-      this.sunLight.shadow.camera.far = 150;
-      this.sunLight.shadow.camera.left = -25;
-      this.sunLight.shadow.camera.right = 25;
-      this.sunLight.shadow.camera.top = 25;
-      this.sunLight.shadow.camera.bottom = -25;
+      this.sunLight.shadow.camera.far = 180;
+      this.sunLight.shadow.camera.left = -28;
+      this.sunLight.shadow.camera.right = 28;
+      this.sunLight.shadow.camera.top = 28;
+      this.sunLight.shadow.camera.bottom = -28;
+      this.sunLight.shadow.bias = -0.0004;
+      this.sunLight.shadow.radius = 2.0;
       this.scene.add(this.sunLight);
 
-      this.hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x3d9970, 0.4);
+      this.hemiLight = new THREE.HemisphereLight(0x93c5fd, 0x1f2937, 0.55);
       this.scene.add(this.hemiLight);
+
+      // Cinematic Rim Light for character edge separation
+      this.rimLight = new THREE.DirectionalLight(0xbfdbfe, 0.4);
+      this.rimLight.position.set(-20, 24, -30);
+      this.scene.add(this.rimLight);
+    }
+
+    // Procedural PBR Texture Engine for High Realism
+    createProceduralTextures() {
+      // 1. Realistic Road Texture (Weathered asphalt with aggregate grit & dashed guide lines)
+      const roadCanvas = document.createElement('canvas');
+      roadCanvas.width = 512;
+      roadCanvas.height = 512;
+      const roadCtx = roadCanvas.getContext('2d');
+
+      roadCtx.fillStyle = '#2b2e35';
+      roadCtx.fillRect(0, 0, 512, 512);
+
+      // Fine mineral aggregate noise
+      const roadImgData = roadCtx.getImageData(0, 0, 512, 512);
+      const data = roadImgData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const noise = (Math.random() - 0.5) * 28;
+        data[i] = Math.max(0, Math.min(255, data[i] + noise));
+        data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+      }
+      roadCtx.putImageData(roadImgData, 0, 0);
+
+      // Subtle wheel-path wear lanes
+      roadCtx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+      roadCtx.fillRect(90, 0, 70, 512);
+      roadCtx.fillRect(350, 0, 70, 512);
+
+      // Weathered dashed center lane markings
+      roadCtx.fillStyle = 'rgba(241, 245, 249, 0.45)';
+      for (let y = 16; y < 512; y += 64) {
+        roadCtx.fillRect(253, y, 6, 36);
+      }
+
+      // Edge demarcation lines
+      roadCtx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      roadCtx.fillRect(20, 0, 4, 512);
+      roadCtx.fillRect(488, 0, 4, 512);
+
+      const roadTex = new THREE.CanvasTexture(roadCanvas);
+      roadTex.wrapS = THREE.RepeatWrapping;
+      roadTex.wrapT = THREE.RepeatWrapping;
+      roadTex.repeat.set(1, 8);
+
+      // 2. Realistic Wood Plank Texture (Bridge & Timber Obstacles)
+      const woodCanvas = document.createElement('canvas');
+      woodCanvas.width = 512;
+      woodCanvas.height = 512;
+      const woodCtx = woodCanvas.getContext('2d');
+
+      woodCtx.fillStyle = '#453225';
+      woodCtx.fillRect(0, 0, 512, 512);
+
+      // Wood grain lines
+      for (let i = 0; i < 400; i++) {
+        const y = Math.random() * 512;
+        woodCtx.strokeStyle = Math.random() > 0.5 ? 'rgba(74, 54, 38, 0.45)' : 'rgba(32, 22, 14, 0.35)';
+        woodCtx.lineWidth = 1 + Math.random() * 2;
+        woodCtx.beginPath();
+        woodCtx.moveTo(0, y);
+        for (let x = 0; x <= 512; x += 40) {
+          woodCtx.lineTo(x, y + Math.sin(x * 0.02) * 3);
+        }
+        woodCtx.stroke();
+      }
+
+      // Plank dividing seams
+      woodCtx.fillStyle = 'rgba(15, 10, 5, 0.65)';
+      for (let py = 64; py < 512; py += 64) {
+        woodCtx.fillRect(0, py - 2, 512, 4);
+      }
+
+      // Iron nails
+      woodCtx.fillStyle = '#18181b';
+      for (let py = 32; py < 512; py += 64) {
+        woodCtx.beginPath();
+        woodCtx.arc(24, py, 3, 0, Math.PI * 2);
+        woodCtx.arc(488, py, 3, 0, Math.PI * 2);
+        woodCtx.fill();
+      }
+
+      const woodTex = new THREE.CanvasTexture(woodCanvas);
+      woodTex.wrapS = THREE.RepeatWrapping;
+      woodTex.wrapT = THREE.RepeatWrapping;
+      woodTex.repeat.set(1, 4);
+
+      // 3. Realistic Ground / Earth & Moss Texture
+      const groundCanvas = document.createElement('canvas');
+      groundCanvas.width = 512;
+      groundCanvas.height = 512;
+      const groundCtx = groundCanvas.getContext('2d');
+
+      groundCtx.fillStyle = '#223828';
+      groundCtx.fillRect(0, 0, 512, 512);
+
+      // Organic soil / moss mottling
+      for (let i = 0; i < 800; i++) {
+        const gx = Math.random() * 512;
+        const gy = Math.random() * 512;
+        const gr = 4 + Math.random() * 16;
+        groundCtx.fillStyle = Math.random() > 0.5 ? 'rgba(24, 48, 30, 0.35)' : 'rgba(40, 72, 48, 0.3)';
+        groundCtx.beginPath();
+        groundCtx.arc(gx, gy, gr, 0, Math.PI * 2);
+        groundCtx.fill();
+      }
+
+      const groundTex = new THREE.CanvasTexture(groundCanvas);
+      groundTex.wrapS = THREE.RepeatWrapping;
+      groundTex.wrapT = THREE.RepeatWrapping;
+      groundTex.repeat.set(4, 8);
+
+      // 4. Realistic Bark Texture
+      const barkCanvas = document.createElement('canvas');
+      barkCanvas.width = 256;
+      barkCanvas.height = 512;
+      const barkCtx = barkCanvas.getContext('2d');
+
+      barkCtx.fillStyle = '#322218';
+      barkCtx.fillRect(0, 0, 256, 512);
+
+      for (let x = 0; x < 256; x += 3) {
+        barkCtx.strokeStyle = Math.random() > 0.4 ? 'rgba(20, 12, 8, 0.5)' : 'rgba(64, 45, 32, 0.4)';
+        barkCtx.lineWidth = 1 + Math.random() * 2;
+        barkCtx.beginPath();
+        barkCtx.moveTo(x, 0);
+        for (let y = 0; y <= 512; y += 30) {
+          barkCtx.lineTo(x + (Math.random() - 0.5) * 3, y);
+        }
+        barkCtx.stroke();
+      }
+
+      const barkTex = new THREE.CanvasTexture(barkCanvas);
+      barkTex.wrapS = THREE.RepeatWrapping;
+      barkTex.wrapT = THREE.RepeatWrapping;
+      barkTex.repeat.set(1, 2);
+
+      // 5. Realistic Granite Rock Texture
+      const rockCanvas = document.createElement('canvas');
+      rockCanvas.width = 256;
+      rockCanvas.height = 256;
+      const rockCtx = rockCanvas.getContext('2d');
+
+      rockCtx.fillStyle = '#57534e';
+      rockCtx.fillRect(0, 0, 256, 256);
+
+      for (let i = 0; i < 600; i++) {
+        const rx = Math.random() * 256;
+        const ry = Math.random() * 256;
+        rockCtx.fillStyle = Math.random() > 0.6 ? 'rgba(28, 25, 23, 0.4)' : 'rgba(214, 211, 209, 0.25)';
+        rockCtx.fillRect(rx, ry, 1 + Math.random() * 3, 1 + Math.random() * 3);
+      }
+
+      const rockTex = new THREE.CanvasTexture(rockCanvas);
+      rockTex.wrapS = THREE.RepeatWrapping;
+      rockTex.wrapT = THREE.RepeatWrapping;
+
+      return { road: roadTex, wood: woodTex, ground: groundTex, bark: barkTex, rock: rockTex };
     }
 
     // Generate high-resolution procedural panoramic sky texture (works 100% offline & on file:// protocol)
@@ -1101,6 +1326,9 @@
       if (this.hemiLight) {
         this.hemiLight.color.setHex(cfg.hemiSky);
         this.hemiLight.groundColor.setHex(cfg.hemiGround);
+      }
+      if (this.rimLight) {
+        this.rimLight.color.setHex(cfg.hemiSky);
       }
 
       // 5. Update track materials instantly (road, curbs, grass, trees, river, flowers)
@@ -1704,49 +1932,84 @@
       this.activeTrackSegments.push(segGroup);
     }
 
+    createRealisticTree() {
+      const treeGroup = new THREE.Group();
+
+      // Branching tapered trunk with bark texture
+      const trunkGeo = new THREE.CylinderGeometry(0.24, 0.42, 3.6, 9);
+      const trunk = new THREE.Mesh(trunkGeo, this.trackMaterials.treeTrunk);
+      trunk.position.y = 1.8;
+      trunk.castShadow = true;
+      trunk.receiveShadow = true;
+      treeGroup.add(trunk);
+
+      // Organic multi-cluster foliage canopy
+      const foliageGroup = new THREE.Group();
+      const folClusters = [
+        { x: 0, y: 3.8, z: 0, sx: 1.4, sy: 1.2, sz: 1.4 },
+        { x: 0.5, y: 3.4, z: 0.3, sx: 1.1, sy: 1.0, sz: 1.1 },
+        { x: -0.45, y: 3.5, z: -0.35, sx: 1.15, sy: 1.05, sz: 1.1 },
+        { x: 0, y: 4.6, z: 0, sx: 0.9, sy: 1.1, sz: 0.9 },
+        { x: -0.25, y: 4.0, z: 0.35, sx: 0.95, sy: 0.95, sz: 0.95 }
+      ];
+
+      const folGeo = new THREE.DodecahedronGeometry(1, 1);
+      folClusters.forEach(c => {
+        const fol = new THREE.Mesh(folGeo, this.trackMaterials.foliage);
+        fol.position.set(c.x, c.y, c.z);
+        fol.scale.set(c.sx, c.sy, c.sz);
+        fol.rotation.set(Math.random() * 3, Math.random() * 3, 0);
+        fol.castShadow = true;
+        fol.receiveShadow = true;
+        foliageGroup.add(fol);
+      });
+      treeGroup.add(foliageGroup);
+
+      treeGroup.rotation.y = Math.random() * Math.PI * 2;
+      treeGroup.rotation.z = (Math.random() - 0.5) * 0.08;
+      return treeGroup;
+    }
+
     addDecorationsToSegment(group, length) {
       for (let z = 2; z < length; z += 6.5) {
-        // Left tree
-        if (Math.random() > 0.3) {
-          const treeGroup = new THREE.Group();
-          const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 3.2, 8), this.trackMaterials.treeTrunk);
-          trunk.position.y = 1.6;
-          trunk.castShadow = true;
-
-          const leaves = new THREE.Mesh(new THREE.ConeGeometry(1.6, 3.0, 8), this.trackMaterials.foliage);
-          leaves.position.y = 3.6;
-          leaves.castShadow = true;
-
-          treeGroup.add(trunk, leaves);
-          treeGroup.position.set(-6.5 - Math.random() * 8, 0, -z);
-          group.add(treeGroup);
+        // Left realistic tree
+        if (Math.random() > 0.28) {
+          const treeL = this.createRealisticTree();
+          treeL.position.set(-6.5 - Math.random() * 8, 0, -z);
+          group.add(treeL);
         }
 
-        // Right tree
-        if (Math.random() > 0.3) {
-          const treeGroupR = new THREE.Group();
-          const trunkR = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 3.2, 8), this.trackMaterials.treeTrunk);
-          trunkR.position.y = 1.6;
-          trunkR.castShadow = true;
+        // Right realistic tree
+        if (Math.random() > 0.28) {
+          const treeR = this.createRealisticTree();
+          treeR.position.set(6.5 + Math.random() * 8, 0, -z);
+          group.add(treeR);
+        }
 
-          const leavesR = new THREE.Mesh(new THREE.ConeGeometry(1.6, 3.0, 8), this.trackMaterials.foliage);
-          leavesR.position.y = 3.6;
-          leavesR.castShadow = true;
-
-          treeGroupR.add(trunkR, leavesR);
-          treeGroupR.position.set(6.5 + Math.random() * 8, 0, -z);
-          group.add(treeGroupR);
+        // Roadside Granite Boulders
+        if (Math.random() > 0.45) {
+          const side = Math.random() > 0.5 ? -1 : 1;
+          const rockMesh = new THREE.Mesh(new THREE.DodecahedronGeometry(0.55 + Math.random() * 0.4, 1), this.trackMaterials.rock);
+          rockMesh.scale.set(1.2, 0.65, 1.1);
+          rockMesh.position.set(side * (5.2 + Math.random() * 2), 0.25, -z + (Math.random() - 0.5) * 2);
+          rockMesh.rotation.set(Math.random(), Math.random(), Math.random());
+          rockMesh.castShadow = true;
+          group.add(rockMesh);
         }
 
         // Wildflower Patches
-        if (Math.random() > 0.4) {
+        if (Math.random() > 0.35) {
           const flowerMat = Math.random() > 0.5 ? this.trackMaterials.flower1 : this.trackMaterials.flower2;
-          const flower = new THREE.Mesh(
-            new THREE.SphereGeometry(0.25, 6, 6),
-            flowerMat
-          );
-          flower.position.set(-4.8, 0.2, -z);
-          group.add(flower);
+          const flGroup = new THREE.Group();
+          // Stem
+          const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.25, 4), this.trackMaterials.foliage);
+          stem.position.y = 0.125;
+          // Petals
+          const flower = new THREE.Mesh(new THREE.SphereGeometry(0.18, 6, 6), flowerMat);
+          flower.position.y = 0.25;
+          flGroup.add(stem, flower);
+          flGroup.position.set(-4.8 + (Math.random() - 0.5) * 0.8, 0, -z);
+          group.add(flGroup);
         }
       }
     }
@@ -1830,40 +2093,69 @@
         let obsType = chosenType;
 
         if (chosenType === 'jump_log') {
-          // Fallen Tree Log -> Must JUMP over
-          const logGeo = new THREE.CylinderGeometry(0.26, 0.26, 2.4, 10);
+          // Fallen Tree Log -> Realistic timber trunk with bark cylinder + ring ends + branch stub
+          const logGroup = new THREE.Group();
+          const logGeo = new THREE.CylinderGeometry(0.28, 0.3, 2.4, 12);
           logGeo.rotateZ(Math.PI / 2);
-          const logMat = new THREE.MeshLambertMaterial({ color: 0x4a2e18 });
-          obsMesh = new THREE.Mesh(logGeo, logMat);
-          obsMesh.position.set(xPos, 0.26, zPos);
-          obsMesh.castShadow = true;
-        } else if (chosenType === 'slide_barrier') {
-          // High Hanging Wooden Barrier -> Must SLIDE under or dodge
-          const frameGroup = new THREE.Group();
-          const barMat = new THREE.MeshLambertMaterial({ color: 0x7c2d12 });
-          const barTop = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.5, 0.3), barMat);
-          barTop.position.set(0, 1.7, 0);
+          const logMesh = new THREE.Mesh(logGeo, this.trackMaterials.treeTrunk);
+          logMesh.castShadow = true;
+          logGroup.add(logMesh);
 
-          const postL = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 2.2, 8), barMat);
-          postL.position.set(-1.3, 1.1, 0);
+          // Cut ends with growth rings
+          const ringEndMat = new THREE.MeshStandardMaterial({ color: 0xdfba8c, roughness: 0.8 });
+          const endL = new THREE.Mesh(new THREE.CircleGeometry(0.28, 12), ringEndMat);
+          endL.position.set(-1.205, 0, 0);
+          endL.rotation.y = -Math.PI / 2;
+          const endR = new THREE.Mesh(new THREE.CircleGeometry(0.3, 12), ringEndMat);
+          endR.position.set(1.205, 0, 0);
+          endR.rotation.y = Math.PI / 2;
+          logGroup.add(endL, endR);
+
+          // Broken branch stub
+          const branchStub = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.12, 0.38, 6), this.trackMaterials.treeTrunk);
+          branchStub.position.set(0.3, 0.28, 0.05);
+          branchStub.rotation.set(0.3, 0.2, 0.4);
+          logGroup.add(branchStub);
+
+          logGroup.position.set(xPos, 0.28, zPos);
+          obsMesh = logGroup;
+        } else if (chosenType === 'slide_barrier') {
+          // High Hanging Timber Barricade with Warning Crossbeam & Lantern
+          const frameGroup = new THREE.Group();
+          const timberMat = this.trackMaterials.bridge;
+          const barTop = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.45, 0.32), timberMat);
+          barTop.position.set(0, 1.7, 0);
+          barTop.castShadow = true;
+
+          const postL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 2.3, 8), timberMat);
+          postL.position.set(-1.3, 1.15, 0);
+          postL.castShadow = true;
           const postR = postL.clone();
           postR.position.x = 1.3;
 
-          // Caution stripes
-          const sign = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 0.32), new THREE.MeshBasicMaterial({ color: 0xfacc15 }));
+          // Hazard striped warning crossbeam
+          const signMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.6, metalness: 0.1 });
+          const sign = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.32, 0.36), signMat);
           sign.position.set(0, 1.7, 0);
 
-          frameGroup.add(barTop, postL, postR, sign);
+          // Hanging rustic lantern
+          const lantern = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.26, 0.18), new THREE.MeshStandardMaterial({ color: 0x18181b, metalness: 0.8, roughness: 0.3 }));
+          lantern.position.set(0, 1.32, 0);
+          const lanternGlass = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.16, 0.12), new THREE.MeshBasicMaterial({ color: 0xffd166 }));
+          lanternGlass.position.set(0, 1.32, 0);
+
+          frameGroup.add(barTop, postL, postR, sign, lantern, lanternGlass);
           frameGroup.position.set(xPos, 0, zPos);
           obsMesh = frameGroup;
         } else if (chosenType === 'dodge_rock') {
-          // Compact Stone / Rock -> Reduced size so player can cleanly JUMP over it!
-          const rockGeo = new THREE.DodecahedronGeometry(0.36);
-          const rockMat = new THREE.MeshLambertMaterial({ color: 0x78716c });
-          obsMesh = new THREE.Mesh(rockGeo, rockMat);
-          obsMesh.scale.set(1.1, 0.65, 1.1); // Flatter, lower profile stone
-          obsMesh.position.set(xPos, 0.24, zPos);
-          obsMesh.castShadow = true;
+          // Faceted granite boulder with realistic roughness
+          const rockGeo = new THREE.DodecahedronGeometry(0.42, 1);
+          const rockMesh = new THREE.Mesh(rockGeo, this.trackMaterials.rock);
+          rockMesh.scale.set(1.25, 0.68, 1.15);
+          rockMesh.rotation.set(0.2, Math.random() * Math.PI, 0.1);
+          rockMesh.position.set(xPos, 0.24, zPos);
+          rockMesh.castShadow = true;
+          obsMesh = rockMesh;
           obsType = 'jump_rock'; // Jumpable stone
         } else if (chosenType === 'bridge_gap') {
           // Broken Bridge Gap -> Must JUMP over
@@ -2399,15 +2691,20 @@
           // Natural running/jogging steps towards her
           this.runCycle += dt * 10;
           const swing = Math.sin(this.runCycle) * 0.45;
+          const sideSway = Math.cos(this.runCycle * 0.5) * 0.05;
+
+          this.boyModel.rotation.z = sideSway;
           this.boyLeftArm.rotation.x = swing;
           this.boyRightArm.rotation.x = -swing;
           this.boyLeftLeg.rotation.x = -swing;
           this.boyRightLeg.rotation.x = swing;
-          if (this.boyLeftShin) this.boyLeftShin.rotation.x = Math.max(0, -swing * 0.5);
-          if (this.boyRightShin) this.boyRightShin.rotation.x = Math.max(0, swing * 0.5);
+
+          if (this.boyLeftShin) this.boyLeftShin.rotation.x = Math.max(0, -swing * 0.7);
+          if (this.boyRightShin) this.boyRightShin.rotation.x = Math.max(0, swing * 0.7);
+
           // Reaching arms slightly outward ready for the hug
-          this.boyLeftArm.rotation.z = 0.25;
-          this.boyRightArm.rotation.z = -0.25;
+          this.boyLeftArm.rotation.z = 0.25 + sideSway;
+          this.boyRightArm.rotation.z = -0.25 - sideSway;
         } else {
           // Standing close in romantic beach embrace matching photo
           const embraceDistance = 0.44;
@@ -2543,16 +2840,30 @@
         this.runCycle += dt * (diff.speed * 0.72);
         if (this.state === 'PLAYING' && this.isGrounded && !this.isSliding) {
           const swing = Math.sin(this.runCycle) * 0.75;
-          this.boyLeftArm.rotation.x = swing;
-          this.boyRightArm.rotation.x = -swing;
+          const sway = Math.cos(this.runCycle) * 0.05;
+          const bob = Math.abs(Math.sin(this.runCycle)) * 0.08;
+
+          // Body sway and bobbing
+          this.boyModel.rotation.z = sway;
+          this.boyModel.position.y = this.playerY + bob;
+
+          // Asymmetric movement: Left Leg with Right Arm
           this.boyLeftLeg.rotation.x = -swing;
           this.boyRightLeg.rotation.x = swing;
+          this.boyRightArm.rotation.x = swing;
+          this.boyLeftArm.rotation.x = -swing;
 
           // Natural knee and elbow flexion
-          if (this.boyLeftShin) this.boyLeftShin.rotation.x = Math.max(0, -swing * 0.7);
-          if (this.boyRightShin) this.boyRightShin.rotation.x = Math.max(0, swing * 0.7);
-          if (this.boyLeftForearm) this.boyLeftForearm.rotation.x = 0.35;
-          if (this.boyRightForearm) this.boyRightForearm.rotation.x = 0.35;
+          if (this.boyLeftShin) this.boyLeftShin.rotation.x = Math.max(0, swing * 0.8);
+          if (this.boyRightShin) this.boyRightShin.rotation.x = Math.max(0, -swing * 0.8);
+          if (this.boyLeftForearm) this.boyLeftForearm.rotation.x = 0.4 + swing * 0.2;
+          if (this.boyRightForearm) this.boyRightForearm.rotation.x = 0.4 - swing * 0.2;
+
+          // Head bobbing
+          if (this.boyHead) {
+            this.boyHead.rotation.x = Math.sin(this.runCycle * 2) * 0.05;
+          }
+
           if (this.boyRingBox) this.boyRingBox.visible = false;
         } else if (this.isJumping) {
           // Jumping pose
@@ -2698,6 +3009,24 @@
       if (distanceToGirl <= 14 && distanceToGirl > 0 && !this.girlCalloutShown) {
         this.girlCalloutShown = true;
         this.triggerGirlCalling();
+      }
+
+      // Atmospheric sunbeam dust motes drifting along trail
+      if (this.state === 'PLAYING' && Math.random() < 0.22) {
+        const moteMat = new THREE.MeshBasicMaterial({ color: 0xfff7ed, transparent: true, opacity: 0.55 });
+        const mote = new THREE.Mesh(new THREE.SphereGeometry(0.04, 4, 4), moteMat);
+        mote.position.set(
+          this.playerX + (Math.random() - 0.5) * 9,
+          0.8 + Math.random() * 3.2,
+          this.playerZ - 10 - Math.random() * 25
+        );
+        this.scene.add(mote);
+        this.particles.push({
+          mesh: mote,
+          vy: 0.18 + Math.random() * 0.28,
+          vx: (Math.random() - 0.5) * 0.35,
+          life: 2.4
+        });
       }
 
       // Milestone: Finish Line reached!
