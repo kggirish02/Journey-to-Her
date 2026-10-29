@@ -778,6 +778,14 @@
       this.hemiLight = null;
       this.selectedTheme = 'forest';
 
+      // Touch Device Detection & Mobile Control Setup
+      this.isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+
+      // Adaptive Camera Parameters for Portrait Mobile Screens
+      this.cameraBaseZ = 7.5;
+      this.cameraBaseY = 4.2;
+      this.cameraFollowX = 0.6;
+
       // Shared theme-adaptive materials for track, ground, foliage, and water
       this.trackMaterials = {
         road: new THREE.MeshLambertMaterial({ color: 0xc0a080 }),
@@ -837,7 +845,13 @@
         diffDescription: document.getElementById('diff-description'),
         gameoverDiffText: document.getElementById('gameover-diff-text'),
         victoryDiffText: document.getElementById('victory-diff-text'),
-        btnSwitchEasy: document.getElementById('btn-switch-easy')
+        btnSwitchEasy: document.getElementById('btn-switch-easy'),
+        // Mobile Touch Elements
+        mobileControls: document.getElementById('mobile-touch-controls'),
+        btnTouchLeft: document.getElementById('btn-touch-left'),
+        btnTouchRight: document.getElementById('btn-touch-right'),
+        btnTouchJump: document.getElementById('btn-touch-jump'),
+        btnTouchSlide: document.getElementById('btn-touch-slide')
       };
 
       this.initThree();
@@ -870,10 +884,13 @@
       // WebGL Renderer
       this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       this.container.appendChild(this.renderer.domElement);
+
+      // Apply initial adaptive camera viewport for portrait / landscape
+      this.updateCameraViewport();
 
       // Lighting
       this.ambientLight = new THREE.AmbientLight(0xfff1e6, 0.7);
@@ -894,6 +911,40 @@
 
       this.hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x3d9970, 0.4);
       this.scene.add(this.hemiLight);
+    }
+
+    // Dynamic camera viewport adaptation for Android mobile phones and desktop
+    updateCameraViewport() {
+      if (!this.camera || !this.renderer) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const aspect = width / height;
+      this.camera.aspect = aspect;
+
+      // Adapt field of view and camera follow offset on portrait mobile screens so all 3 lanes (-3.0 to +3.0) stay on screen
+      if (aspect < 0.6) {
+        // Tall phone portrait (e.g. 9:19.5, 9:20 Android screens)
+        this.camera.fov = 78;
+        this.cameraBaseZ = 9.8;
+        this.cameraBaseY = 5.2;
+        this.cameraFollowX = 0.35;
+      } else if (aspect < 0.9) {
+        // Standard phone portrait / tablet portrait
+        this.camera.fov = 70;
+        this.cameraBaseZ = 8.6;
+        this.cameraBaseY = 4.8;
+        this.cameraFollowX = 0.45;
+      } else {
+        // Landscape / Desktop
+        this.camera.fov = 60;
+        this.cameraBaseZ = 7.5;
+        this.cameraBaseY = 4.2;
+        this.cameraFollowX = 0.6;
+      }
+
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(width, height);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     }
 
     // Generate high-resolution procedural panoramic sky texture (works 100% offline & on file:// protocol)
@@ -1932,13 +1983,16 @@
         }
       });
 
-      // Window resize
+      // Window resize & orientation change for Android mobile and desktop
       window.addEventListener('resize', () => {
-        if (!this.camera || !this.renderer) return;
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.updateCameraViewport();
       });
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => this.updateCameraViewport(), 100);
+      });
+
+      // Initialize mobile touch swipe gestures & virtual buttons
+      this.setupTouchControls();
 
       // UI Buttons
       document.getElementById('btn-start-game').addEventListener('click', () => {
@@ -2012,6 +2066,154 @@
       }
     }
 
+    // Haptic feedback for Android touch devices
+    triggerHaptic(ms = 20) {
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try {
+          navigator.vibrate(ms);
+        } catch (e) {}
+      }
+    }
+
+    // Toggle on-screen touch control buttons visibility
+    updateMobileControlsVisibility() {
+      if (!this.dom.mobileControls) return;
+      if (this.state === 'PLAYING' && this.isTouchDevice) {
+        this.dom.mobileControls.classList.remove('hidden');
+      } else {
+        this.dom.mobileControls.classList.add('hidden');
+      }
+    }
+
+    // Mobile touch gestures (Swipes & Taps) + On-Screen Touch Controls
+    setupTouchControls() {
+      let startX = 0;
+      let startY = 0;
+      let startTime = 0;
+      let swipeHandled = false;
+
+      // Unlock mobile audio on first user touch anywhere
+      const unlockAudio = () => {
+        if (this.sound) {
+          this.sound.init();
+          this.sound.resume();
+        }
+        window.removeEventListener('touchstart', unlockAudio, true);
+        window.removeEventListener('touchend', unlockAudio, true);
+        window.removeEventListener('pointerdown', unlockAudio, true);
+      };
+      window.addEventListener('touchstart', unlockAudio, { passive: true, capture: true });
+      window.addEventListener('touchend', unlockAudio, { passive: true, capture: true });
+      window.addEventListener('pointerdown', unlockAudio, { passive: true, capture: true });
+
+      // Swipe and Tap detection on screen
+      window.addEventListener('touchstart', (e) => {
+        if (this.state !== 'PLAYING') return;
+        if (e.target.closest && (e.target.closest('button') || e.target.closest('.touch-btn') || e.target.closest('.hud-container'))) {
+          return;
+        }
+        if (e.touches && e.touches.length > 0) {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          startTime = performance.now();
+          swipeHandled = false;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (this.state !== 'PLAYING' || swipeHandled) return;
+        if (e.target.closest && (e.target.closest('button') || e.target.closest('.touch-btn'))) {
+          return;
+        }
+        if (!e.touches || e.touches.length === 0) return;
+
+        const curX = e.touches[0].clientX;
+        const curY = e.touches[0].clientY;
+        const deltaX = curX - startX;
+        const deltaY = curY - startY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+
+        // Swipe threshold: 30px is snappy and prevents misfires
+        if (absX > 30 || absY > 30) {
+          if (absX > absY) {
+            // Horizontal Swipe
+            if (deltaX > 0) {
+              this.moveLane(1);
+              this.triggerHaptic(20);
+            } else {
+              this.moveLane(-1);
+              this.triggerHaptic(20);
+            }
+          } else {
+            // Vertical Swipe
+            if (deltaY < 0) {
+              this.jump();
+              this.triggerHaptic(25);
+            } else {
+              this.slide();
+              this.triggerHaptic(25);
+            }
+          }
+          swipeHandled = true;
+          if (e.cancelable) e.preventDefault();
+        }
+      }, { passive: false });
+
+      window.addEventListener('touchend', (e) => {
+        if (this.state !== 'PLAYING') return;
+        if (e.target.closest && (e.target.closest('button') || e.target.closest('.touch-btn') || e.target.closest('.hud-container'))) {
+          return;
+        }
+        // Tap gesture detection (quick tap without swiping)
+        if (!swipeHandled && (performance.now() - startTime < 280)) {
+          const tapX = startX;
+          const width = window.innerWidth;
+          if (tapX < width * 0.35) {
+            this.moveLane(-1);
+            this.triggerHaptic(20);
+          } else if (tapX > width * 0.65) {
+            this.moveLane(1);
+            this.triggerHaptic(20);
+          } else {
+            this.jump();
+            this.triggerHaptic(25);
+          }
+        }
+        swipeHandled = false;
+      }, { passive: true });
+
+      // On-Screen Virtual Buttons
+      const bindTouchBtn = (btn, action, hapticMs) => {
+        if (!btn) return;
+        const trigger = (e) => {
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+          btn.classList.add('active-touch');
+          action();
+          this.triggerHaptic(hapticMs);
+        };
+        const release = () => {
+          btn.classList.remove('active-touch');
+        };
+
+        btn.addEventListener('touchstart', trigger, { passive: false });
+        btn.addEventListener('touchend', release, { passive: true });
+        btn.addEventListener('touchcancel', release, { passive: true });
+        btn.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'touch') return; // Handled by touchstart
+          trigger(e);
+        });
+        btn.addEventListener('pointerup', release);
+        btn.addEventListener('pointerleave', release);
+      };
+
+      bindTouchBtn(this.dom.btnTouchLeft, () => this.moveLane(-1), 20);
+      bindTouchBtn(this.dom.btnTouchRight, () => this.moveLane(1), 20);
+      bindTouchBtn(this.dom.btnTouchJump, () => this.jump(), 25);
+      bindTouchBtn(this.dom.btnTouchSlide, () => this.slide(), 25);
+    }
+
     // Lane Navigation with Smooth Transition
     moveLane(direction) {
       const nextLane = this.currentLane + direction;
@@ -2048,6 +2250,7 @@
       this.dom.screenStart.classList.add('hidden');
       this.dom.hud.classList.remove('hidden');
       this.dom.hudControls.classList.remove('hidden');
+      this.updateMobileControlsVisibility();
       this.gameStartTime = performance.now();
       this.sound.playBgm('jailer');
     }
@@ -2056,6 +2259,7 @@
       if (this.state !== 'PLAYING') return;
       this.state = 'PAUSED';
       this.sound.pauseBgm();
+      this.updateMobileControlsVisibility();
       this.dom.screenPause.classList.remove('hidden');
 
       // Update pause stats
@@ -2069,6 +2273,7 @@
       if (this.state !== 'PAUSED') return;
       this.state = 'PLAYING';
       this.sound.resume();
+      this.updateMobileControlsVisibility();
       this.dom.screenPause.classList.add('hidden');
     }
 
@@ -2076,6 +2281,7 @@
       this.state = 'GAMEOVER';
       this.sound.stopBgm();
       this.sound.playHit();
+      this.updateMobileControlsVisibility();
 
       // Play YouTube failure BGM (https://youtube.com/shorts/IA7f98LlimI) right after hit impact
       setTimeout(() => {
@@ -2101,6 +2307,7 @@
 
     triggerVictory() {
       this.state = 'CUTSCENE';
+      this.updateMobileControlsVisibility();
       this.hugTimer = 0;
       // Immediately switch from running track to YouTube Victory Love Song (Premada Oorali) while hugging her!
       this.sound.playVictoryBgm();
@@ -2226,6 +2433,7 @@
       this.sound.stopBgm();
 
       // Hide modals & HUD
+      this.updateMobileControlsVisibility();
       this.dom.screenPause.classList.add('hidden');
       this.dom.screenGameOver.classList.add('hidden');
       this.dom.screenVictory.classList.add('hidden');
@@ -2288,7 +2496,9 @@
       if (this.girlLegR) this.girlLegR.rotation.set(0, 0, 0);
 
       // Reset camera
-      this.camera.position.set(0, 4.2, 7.5);
+      const camBaseZ = this.cameraBaseZ !== undefined ? this.cameraBaseZ : 7.5;
+      const camBaseY = this.cameraBaseY !== undefined ? this.cameraBaseY : 4.2;
+      this.camera.position.set(0, camBaseY, camBaseZ);
       this.camera.lookAt(0, 1.5, -2);
 
       // Reset coins & obstacles
@@ -2589,12 +2799,15 @@
         this.camera.position.y += (camTargetY - this.camera.position.y) * 3.5 * dt;
         this.camera.lookAt(0, 1.22, -TOTAL_DISTANCE + 0.22);
       } else {
-        const camTargetZ = this.playerZ + 7.5;
-        const camTargetY = this.playerY + 4.2;
+        const camBaseZ = this.cameraBaseZ !== undefined ? this.cameraBaseZ : 7.5;
+        const camBaseY = this.cameraBaseY !== undefined ? this.cameraBaseY : 4.2;
+        const camFollowX = this.cameraFollowX !== undefined ? this.cameraFollowX : 0.6;
+        const camTargetZ = this.playerZ + camBaseZ;
+        const camTargetY = this.playerY + camBaseY;
         this.camera.position.z += (camTargetZ - this.camera.position.z) * 10 * dt;
-        this.camera.position.x += (this.playerX * 0.6 - this.camera.position.x) * 8 * dt;
+        this.camera.position.x += (this.playerX * camFollowX - this.camera.position.x) * 8 * dt;
         this.camera.position.y += (camTargetY - this.camera.position.y) * 8 * dt;
-        this.camera.lookAt(this.playerX * 0.4, this.playerY + 1.5, this.playerZ - 4.5);
+        this.camera.lookAt(this.playerX * (camFollowX * 0.6), this.playerY + 1.5, this.playerZ - 4.5);
       }
 
       // Skybox follows player for parallax

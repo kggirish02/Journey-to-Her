@@ -3,8 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> ❤️ - 3D Endless Adventure Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0f172a">
+  <title>The Journey to Her ❤️ - 3D Endless Adventure Game</title>
   <meta name="description"
     content="A romantic 3D runner adventure game: help the boy run through magical paths, collect golden coins, overcome obstacles, and reach the girl waiting for him!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,11 +108,36 @@
 
   <!-- Control Hints Footer (In-Game) -->
   <div id="hud-controls-hint" class="controls-hint hidden">
-    <span><kbd>A</kbd> / <kbd>←</kbd> Left</span>
-    <span><kbd>D</kbd> / <kbd>→</kbd> Right</span>
-    <span><kbd>Space</kbd> / <kbd>↑</kbd> Jump</span>
-    <span><kbd>S</kbd> / <kbd>↓</kbd> Slide</span>
-    <span><kbd>Esc</kbd> Pause</span>
+    <span class="desktop-hint"><kbd>A</kbd> / <kbd>←</kbd> Left</span>
+    <span class="desktop-hint"><kbd>D</kbd> / <kbd>→</kbd> Right</span>
+    <span class="desktop-hint"><kbd>Space</kbd> / <kbd>↑</kbd> Jump</span>
+    <span class="desktop-hint"><kbd>S</kbd> / <kbd>↓</kbd> Slide</span>
+    <span class="desktop-hint"><kbd>Esc</kbd> Pause</span>
+    <span class="mobile-hint">👈 Swipe / Tap Buttons to Move &bull; 👆 Jump &bull; 👇 Slide</span>
+  </div>
+
+  <!-- On-Screen Mobile Touch Controls (Android / Mobile Play) -->
+  <div id="mobile-touch-controls" class="mobile-touch-controls hidden">
+    <div class="touch-cluster touch-cluster-left">
+      <button id="btn-touch-left" class="touch-btn" aria-label="Move Left">
+        <span class="touch-btn-arrow">◀</span>
+        <span class="touch-btn-text">LEFT</span>
+      </button>
+      <button id="btn-touch-right" class="touch-btn" aria-label="Move Right">
+        <span class="touch-btn-arrow">▶</span>
+        <span class="touch-btn-text">RIGHT</span>
+      </button>
+    </div>
+    <div class="touch-cluster touch-cluster-right">
+      <button id="btn-touch-jump" class="touch-btn touch-btn-action touch-jump" aria-label="Jump">
+        <span class="touch-btn-arrow">▲</span>
+        <span class="touch-btn-text">JUMP</span>
+      </button>
+      <button id="btn-touch-slide" class="touch-btn touch-btn-action touch-slide" aria-label="Slide">
+        <span class="touch-btn-arrow">▼</span>
+        <span class="touch-btn-text">SLIDE</span>
+      </button>
+    </div>
   </div>
 
   <!-- UI SCREEN 1: START SCREEN -->
@@ -116,7 +145,7 @@
     <div class="start-card glass-panel">
       <div class="title-glow-wrap">
         <span class="badge-tag">✨ 3D ROMANTIC ADVENTURE</span>
-        <h1 class="game-title"><span class="heart-pulse">❤️</span></h1>
+        <h1 class="game-title">The Journey to Her <span class="heart-pulse">❤️</span></h1>
       </div>
 
       <p class="story-blurb">
@@ -173,19 +202,19 @@
       <!-- Controls Card Preview -->
       <div class="controls-guide-grid">
         <div class="guide-item">
-          <div class="keys-row"><kbd>A</kbd> or <kbd>←</kbd></div>
+          <div class="keys-row"><kbd>A</kbd> / <kbd>←</kbd> <span class="mobile-swipe-tag">👈 Swipe</span></div>
           <span class="guide-text">Move Left Lane</span>
         </div>
         <div class="guide-item">
-          <div class="keys-row"><kbd>D</kbd> or <kbd>→</kbd></div>
+          <div class="keys-row"><kbd>D</kbd> / <kbd>→</kbd> <span class="mobile-swipe-tag">👉 Swipe</span></div>
           <span class="guide-text">Move Right Lane</span>
         </div>
         <div class="guide-item">
-          <div class="keys-row"><kbd>Space</kbd> or <kbd>↑</kbd></div>
+          <div class="keys-row"><kbd>Space</kbd> / <kbd>↑</kbd> <span class="mobile-swipe-tag">👆 Swipe</span></div>
           <span class="guide-text">Jump Obstacles</span>
         </div>
         <div class="guide-item">
-          <div class="keys-row"><kbd>S</kbd> or <kbd>↓</kbd></div>
+          <div class="keys-row"><kbd>S</kbd> / <kbd>↓</kbd> <span class="mobile-swipe-tag">👇 Swipe</span></div>
           <span class="guide-text">Slide / Duck</span>
         </div>
       </div>
