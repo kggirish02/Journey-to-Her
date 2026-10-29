@@ -47,18 +47,55 @@ Players can select their preferred gameplay challenge on the Start Screen or swi
 
 ---
 
-## 🚀 4. Exact Steps to Run in VS Code
+## 🌐 4. Direct Vercel Deployment
+
+This project is fully configured for **1-click direct Vercel deployment**:
+
+### Method 1: Using the Vercel Dashboard (GitHub / GitLab / Bitbucket)
+1. Push this repository to your GitHub account:
+   ```bash
+   git add .
+   git commit -m "Configure Vercel deployment & realistic theme"
+   git push origin main
+   ```
+2. Log into [Vercel](https://vercel.com) and click **"Add New... -> Project"**.
+3. Import your `Journey-to-Her` repository.
+4. Keep the Framework Preset as **Other** (Root Directory: `./`).
+5. Click **"Deploy"**!
+
+### Method 2: Using the Vercel CLI
+1. Install Vercel CLI (if not already installed):
+   ```bash
+   npm i -g vercel
+   ```
+2. In the project folder, run:
+   ```bash
+   vercel
+   ```
+3. For production release:
+   ```bash
+   vercel --prod
+   ```
+
+### ⚙️ Vercel Optimizations Configured (`vercel.json`):
+- **Audio Streaming Support:** Adds `Accept-Ranges: bytes` and proper MIME types (`audio/webm`, `audio/mp4`, `audio/wav`) for smooth background music streaming across all mobile and desktop browsers.
+- **Edge CDN Asset Caching:** Caches generated environment textures and audio files (`Cache-Control: public, max-age=31536000, immutable`).
+- **Security Headers:** Enforces `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, and clean cross-origin policies.
+
+---
+
+## 🚀 5. Local Development Options
 
 You can run the game immediately with zero build tools or complex server setups!
 
 ### Option A: Using VS Code "Live Server" (Recommended)
-1. Open the **`boy`** folder in Visual Studio Code (`File -> Open Folder... -> Select boy`).
+1. Open the **`Journey-to-Her`** folder in Visual Studio Code (`File -> Open Folder... -> Select Journey-to-Her`).
 2. If you don't have it, install the **Live Server** extension by *Ritwick Dey* (search for `Live Server` in VS Code Extensions `Ctrl+Shift+X`).
 3. Right-click on **`index.html`** in the Explorer sidebar and click **"Open with Live Server"**.
 4. The game will automatically launch in your default web browser at `http://127.0.0.1:5500/index.html`.
 
 ### Option B: Using Built-in Python Server
-1. Open a terminal inside the `boy` folder in VS Code (`Ctrl + ~`).
+1. Open a terminal inside the `Journey-to-Her` folder in VS Code (`Ctrl + ~`).
 2. Run:
    ```bash
    python -m http.server 8000
@@ -73,7 +110,7 @@ You can run the game immediately with zero build tools or complex server setups!
 
 ---
 
-## 🎵 5. Cinematic Three-Tier Soundtrack System
+## 🎵 6. Cinematic Three-Tier Soundtrack System
 The game features a complete, responsive three-stage soundtrack system with studio-quality audio playback and procedural Web Audio synthesis fallback:
 - **Stage 1: High-Energy Running Soundtrack:**
   - **🔥 Veera Veera (OM) - Sai Abhyankkar / Dhanush Mass BGM (from [YouTube](https://youtu.be/UAdkjJaD_u8)):** Pumps continuously during gameplay with zero interruptions. Available as `assets/audio/jailer2_track.webm` and `.m4a`.
@@ -91,7 +128,7 @@ The game features a complete, responsive three-stage soundtrack system with stud
 
 ---
 
-## 🤖 6. Generative AI Component (College Assignment)
+## 🤖 7. Generative AI Component (College Assignment)
 
 This project features a dedicated **Generative AI Art Generation Pipeline** powered by **PyTorch** and **Hugging Face Diffusers**.
 
@@ -104,7 +141,7 @@ This project features a dedicated **Generative AI Art Generation Pipeline** powe
 - Maps the generated textures onto a 3D cylindrical horizon mesh in Three.js with real-time parallax scrolling.
 
 ### How to Run the AI Generator:
-1. Open terminal in the `boy` folder.
+1. Open terminal in the `Journey-to-Her` folder.
 2. Install requirements:
    ```bash
    pip install -r ai_model/requirements.txt
@@ -117,10 +154,10 @@ This project features a dedicated **Generative AI Art Generation Pipeline** powe
 
 ---
 
-## 📁 6. Project Structure
+## 📁 8. Project Structure
 
 ```
-boy/
+Journey-to-Her/
 ├── index.html                 # Main game HTML with 3D canvas, HUD, and glassmorphic UI
 ├── style.css                  # Modern CSS design system (glassmorphism, animations)
 ├── game.js                    # Core Three.js 3D game engine & Web Audio synthesizer
@@ -140,7 +177,7 @@ boy/
 
 ---
 
-## ❤️ 7. Gameplay Flow Checklist
+## ❤️ 9. Gameplay Flow Checklist
 - [x] **Start Screen:** Title, romantic story summary, cute 3D cartoon boy preview, theme selection.
 - [x] **Scene 2:** Smooth third-person running along a 3-lane road with side trees & flowers.
 - [x] **Scene 3:** Golden coins rotating and glowing; touch to collect (+10 score & chime sound).
