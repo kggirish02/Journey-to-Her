@@ -1,0 +1,32 @@
+{
+    // VS Code Launch Configuration for The Journey to Her
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "▶ Play Game (Launch in Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
+            "name": "▶ Play Game (Launch in Edge)",
+            "type": "msedge",
+            "request": "launch",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
+            "name": "Launch against Python Server (port 8000)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch against Live Server (port 5500)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://127.0.0.1:5500/index.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

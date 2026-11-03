@@ -123,20 +123,26 @@
 
     init() {
       if (this.ctx) return;
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      this.ctx = new AudioCtx();
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          this.ctx = new AudioCtx();
 
-      this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(0.8, this.ctx.currentTime);
-      this.masterGain.connect(this.ctx.destination);
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.8, this.ctx.currentTime);
+          this.masterGain.connect(this.ctx.destination);
 
-      this.bgmGain = this.ctx.createGain();
-      this.bgmGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
-      this.bgmGain.connect(this.masterGain);
+          this.bgmGain = this.ctx.createGain();
+          this.bgmGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+          this.bgmGain.connect(this.masterGain);
 
-      this.sfxGain = this.ctx.createGain();
-      this.sfxGain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-      this.sfxGain.connect(this.masterGain);
+          this.sfxGain = this.ctx.createGain();
+          this.sfxGain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+          this.sfxGain.connect(this.masterGain);
+        }
+      } catch (err) {
+        console.warn('AudioContext initialization note:', err);
+      }
     }
 
     pauseBgm() {
@@ -772,6 +778,10 @@
       this.boyBackpack = null;
       this.girlModel = null;
       this.destinationGazebo = null;
+      this.girlBlueHeart = null;
+      this.girlBlueLight = null;
+      this.archUnitedHeart = null;
+      this.unitedEmbraceHeart = null;
       this.skyCylinder = null;
       this.ambientLight = null;
       this.sunLight = null;
@@ -897,6 +907,9 @@
         victoryCoins: document.getElementById('victory-coins'),
         victoryScore: document.getElementById('victory-score'),
         victoryTime: document.getElementById('victory-time'),
+        unitedHeartImg: document.getElementById('united-heart-img'),
+        btnToggleHeartStyle: document.getElementById('btn-toggle-heart-style'),
+        unitedHeartCard: document.getElementById('united-heart-card'),
         // Difficulty UI
         hudDiffBadge: document.getElementById('hud-diff-badge'),
         diffDescription: document.getElementById('diff-description'),
@@ -1472,6 +1485,158 @@
     }
 
     // ========================================================================
+    // 3D HEART GENERATORS (Blue Heart & United Red-Blue Heart)
+    // ========================================================================
+    createHeartGeometry(size = 0.5, depth = 0.15) {
+      const shape = new THREE.Shape();
+      const steps = 60;
+      for (let i = 0; i <= steps; i++) {
+        const t = (i / steps) * Math.PI * 2;
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+        const scale = size / 16;
+        if (i === 0) {
+          shape.moveTo(x * scale, y * scale);
+        } else {
+          shape.lineTo(x * scale, y * scale);
+        }
+      }
+      const extrudeSettings = {
+        depth: depth,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: depth * 0.28,
+        bevelThickness: depth * 0.28
+      };
+      const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geom.center();
+      return geom;
+    }
+
+    createHeartMesh({ color = 0x2563eb, emissive = 0x1d4ed8, size = 0.5, depth = 0.15 } = {}) {
+      const geom = this.createHeartGeometry(size, depth);
+      const mat = new THREE.MeshStandardMaterial({
+        color: color,
+        emissive: emissive,
+        emissiveIntensity: 0.8,
+        roughness: 0.2,
+        metalness: 0.25,
+        side: THREE.DoubleSide
+      });
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.castShadow = true;
+      return mesh;
+    }
+
+    createUnitedHeartMesh({ size = 0.75, depth = 0.18 } = {}) {
+      const group = new THREE.Group();
+      const scale = size / 16;
+      const stepsHalf = 30;
+
+      // 1. Right Half: Ruby Red
+      const rightShape = new THREE.Shape();
+      const yTop = (13 - 5 - 2 - 1) * scale;
+      const yBot = (-13 - 5 + 2 - 1) * scale;
+
+      rightShape.moveTo(0, yTop);
+      const rightPoints = [];
+      for (let i = 0; i <= stepsHalf; i++) {
+        const t = (i / stepsHalf) * Math.PI;
+        const x = 16 * Math.pow(Math.sin(t), 3) * scale;
+        const y = (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+        rightShape.lineTo(x, y);
+        rightPoints.push(new THREE.Vector3(x, y, depth / 2));
+      }
+      rightShape.lineTo(0, yTop);
+
+      // 2. Left Half: Electric Blue
+      const leftShape = new THREE.Shape();
+      leftShape.moveTo(0, yBot);
+      const leftPoints = [];
+      for (let i = 0; i <= stepsHalf; i++) {
+        const t = Math.PI + (i / stepsHalf) * Math.PI;
+        const x = 16 * Math.pow(Math.sin(t), 3) * scale;
+        const y = (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+        leftShape.lineTo(x, y);
+        leftPoints.push(new THREE.Vector3(x, y, depth / 2));
+      }
+      leftShape.lineTo(0, yBot);
+
+      const extrudeSettings = {
+        depth: depth,
+        bevelEnabled: true,
+        bevelSegments: 4,
+        steps: 1,
+        bevelSize: depth * 0.24,
+        bevelThickness: depth * 0.24
+      };
+
+      const rightGeom = new THREE.ExtrudeGeometry(rightShape, extrudeSettings);
+      const leftGeom = new THREE.ExtrudeGeometry(leftShape, extrudeSettings);
+
+      const redMat = new THREE.MeshStandardMaterial({
+        color: 0xef4444,
+        emissive: 0xdc2626,
+        emissiveIntensity: 0.8,
+        roughness: 0.2,
+        metalness: 0.25,
+        side: THREE.DoubleSide
+      });
+
+      const blueMat = new THREE.MeshStandardMaterial({
+        color: 0x2563eb,
+        emissive: 0x1d4ed8,
+        emissiveIntensity: 0.8,
+        roughness: 0.2,
+        metalness: 0.25,
+        side: THREE.DoubleSide
+      });
+
+      const rightMesh = new THREE.Mesh(rightGeom, redMat);
+      const leftMesh = new THREE.Mesh(leftGeom, blueMat);
+      rightMesh.castShadow = true;
+      leftMesh.castShadow = true;
+
+      const yCenterOffset = -(yTop + yBot) / 2;
+      rightMesh.position.set(0, yCenterOffset, -depth / 2);
+      leftMesh.position.set(0, yCenterOffset, -depth / 2);
+      group.add(rightMesh, leftMesh);
+
+      // 3. Neon Outline Tubes (Matching Image 1 & 2)
+      try {
+        if (rightPoints.length >= 2) {
+          const rightCurve = new THREE.CatmullRomCurve3(rightPoints);
+          const rightTube = new THREE.Mesh(
+            new THREE.TubeGeometry(rightCurve, 24, depth * 0.22, 8, false),
+            new THREE.MeshBasicMaterial({ color: 0xf87171 })
+          );
+          rightTube.position.set(0, yCenterOffset, 0);
+          group.add(rightTube);
+        }
+
+        if (leftPoints.length >= 2) {
+          const leftCurve = new THREE.CatmullRomCurve3(leftPoints);
+          const leftTube = new THREE.Mesh(
+            new THREE.TubeGeometry(leftCurve, 24, depth * 0.22, 8, false),
+            new THREE.MeshBasicMaterial({ color: 0x60a5fa })
+          );
+          leftTube.position.set(0, yCenterOffset, 0);
+          group.add(leftTube);
+        }
+      } catch (e) {}
+
+      // Dual Colored Point Lights
+      const redLight = new THREE.PointLight(0xef4444, 1.2, 3.5);
+      redLight.position.set(size * 0.4, yCenterOffset, 0.2);
+      const blueLight = new THREE.PointLight(0x3b82f6, 1.2, 3.5);
+      blueLight.position.set(-size * 0.4, yCenterOffset, 0.2);
+      group.add(redLight, blueLight);
+
+      return group;
+    }
+
+    // ========================================================================
     // CHARACTER MODELING (Realistic Stylized Human Boy & Girl)
     // ========================================================================
     buildBoyCharacter() {
@@ -1767,9 +1932,11 @@
       archTop.position.set(0, 5.2, 6);
       destGroup.add(archL, archR, archTop);
 
-      const archHeart = new THREE.Mesh(new THREE.SphereGeometry(0.55, 12, 12), new THREE.MeshLambertMaterial({ color: 0xff0055 }));
-      archHeart.position.set(0, 5.9, 6);
+      // Archway United Red & Blue Heart (Rotating at finish line arch)
+      const archHeart = this.createUnitedHeartMesh({ size: 0.9, depth: 0.22 });
+      archHeart.position.set(0, 5.65, 6); archHeart.rotation.x = 0.08;
       destGroup.add(archHeart);
+      this.archUnitedHeart = archHeart;
 
       // 5. THE GIRL CHARACTER (Auburn/Copper Hair, White Top, Denim Jeans, Barefoot on Sand)
       this.girlModel = new THREE.Group();
@@ -1894,6 +2061,30 @@
       this.girlModel.add(this.girlArmR);
 
       destGroup.add(this.girlModel);
+
+      // Dedicated Floating Blue Heart near the girl (User request: "when they win at end near her keep one blue heart")
+      this.girlBlueHeart = this.createHeartMesh({
+        color: 0x1d4ed8,
+        emissive: 0x2563eb,
+        size: 0.62,
+        depth: 0.18
+      });
+      // Positioned to the girl''s side on the beach shore, hidden until destination/win!
+      this.girlBlueHeart.position.set(1.25, 1.45, -0.2);
+      this.girlBlueHeart.visible = false;
+      destGroup.add(this.girlBlueHeart);
+
+      // Dedicated Blue point light softly illuminating her
+      this.girlBlueLight = new THREE.PointLight(0x38bdf8, 1.8, 5.0);
+      this.girlBlueLight.position.set(1.25, 1.5, 0.1);
+      this.girlBlueLight.visible = false;
+      destGroup.add(this.girlBlueLight);
+
+      // United Red & Blue Heart rising above the couple during the beach embrace
+      this.unitedEmbraceHeart = this.createUnitedHeartMesh({ size: 0.72, depth: 0.18 });
+      this.unitedEmbraceHeart.position.set(0, 2.1, 0.22);
+      this.unitedEmbraceHeart.visible = false;
+      destGroup.add(this.unitedEmbraceHeart);
 
       this.destinationGazebo = destGroup;
       this.scene.add(destGroup);
@@ -2236,12 +2427,33 @@
     initEvents() {
       // Keyboard input
       window.addEventListener('keydown', (e) => {
-        if (this.state !== 'PLAYING') {
-          if (e.key === 'Escape' || e.code === 'KeyP') {
-            if (this.state === 'PAUSED') this.resumeGame();
+        if (this.state === 'START') {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            this.sound.init();
+            this.sound.resume();
+            this.startGame();
           }
           return;
         }
+
+        if (this.state === 'GAMEOVER' || this.state === 'VICTORY') {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            this.restartGame();
+          }
+          return;
+        }
+
+        if (this.state === 'PAUSED') {
+          if (e.key === 'Escape' || e.code === 'KeyP' || e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            this.resumeGame();
+          }
+          return;
+        }
+
+        if (this.state !== 'PLAYING') return;
 
         switch (e.key) {
           case 'ArrowLeft':
@@ -2298,6 +2510,31 @@
       document.getElementById('btn-pause-restart').addEventListener('click', () => this.restartGame());
       document.getElementById('btn-restart').addEventListener('click', () => this.restartGame());
       document.getElementById('btn-play-again').addEventListener('click', () => this.restartGame());
+
+      // United Heart Image toggle (Neon / Painted style from user uploads)
+      const unitedImg = document.getElementById('united-heart-img');
+      const toggleHeartBtn = document.getElementById('btn-toggle-heart-style');
+      const heartCard = document.getElementById('united-heart-card');
+      const heartStyles = [
+        'assets/images/united_heart_neon.png',
+        'assets/images/united_heart_paint.jpg'
+      ];
+      let currentHeartStyleIdx = 0;
+      const switchHeartStyle = () => {
+        if (!unitedImg) return;
+        currentHeartStyleIdx = (currentHeartStyleIdx + 1) % heartStyles.length;
+        unitedImg.src = heartStyles[currentHeartStyleIdx];
+        if (this.sound && this.sound.playCoin) this.sound.playCoin();
+      };
+      if (toggleHeartBtn) {
+        toggleHeartBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          switchHeartStyle();
+        });
+      }
+      if (heartCard) {
+        heartCard.addEventListener('click', switchHeartStyle);
+      }
 
       // Home Page Buttons
       document.getElementById('btn-gameover-home').addEventListener('click', () => this.goToHome());
@@ -2601,6 +2838,8 @@
       this.state = 'CUTSCENE';
       this.updateMobileControlsVisibility();
       this.hugTimer = 0;
+      if (this.girlBlueHeart) this.girlBlueHeart.visible = true;
+      if (this.girlBlueLight) this.girlBlueLight.visible = true;
       // Immediately switch from running track to YouTube Victory Love Song (Premada Oorali) while hugging her!
       this.sound.playVictoryBgm();
       this.setTheme('beach'); // Seamlessly transition skybox and warm lighting to sunset beach!
@@ -2705,6 +2944,12 @@
       if (this.girlArmR) this.girlArmR.rotation.set(0, 0, 0);
       if (this.girlLegL) this.girlLegL.rotation.set(0, 0, 0);
       if (this.girlLegR) this.girlLegR.rotation.set(0, 0, 0);
+      if (this.girlBlueHeart) this.girlBlueHeart.visible = false;
+      if (this.girlBlueLight) this.girlBlueLight.visible = false;
+      if (this.unitedEmbraceHeart) {
+        this.unitedEmbraceHeart.visible = false;
+        this.unitedEmbraceHeart.position.set(0, 2.1, 0.22);
+      }
 
       // Re-populate coins and obstacles fresh for the current difficulty
       this.clearCoinsAndObstacles();
@@ -2736,6 +2981,12 @@
 
       // Show Start Screen
       this.dom.screenStart.classList.remove('hidden');
+      if (this.girlBlueHeart) this.girlBlueHeart.visible = false;
+      if (this.girlBlueLight) this.girlBlueLight.visible = false;
+      if (this.unitedEmbraceHeart) {
+        this.unitedEmbraceHeart.visible = false;
+        this.unitedEmbraceHeart.position.set(0, 2.1, 0.22);
+      }
 
       // Reset state variables
       this.state = 'START';
@@ -2786,6 +3037,12 @@
       if (this.girlArmR) this.girlArmR.rotation.set(0, 0, 0);
       if (this.girlLegL) this.girlLegL.rotation.set(0, 0, 0);
       if (this.girlLegR) this.girlLegR.rotation.set(0, 0, 0);
+      if (this.girlBlueHeart) this.girlBlueHeart.visible = false;
+      if (this.girlBlueLight) this.girlBlueLight.visible = false;
+      if (this.unitedEmbraceHeart) {
+        this.unitedEmbraceHeart.visible = false;
+        this.unitedEmbraceHeart.position.set(0, 2.1, 0.22);
+      }
 
       // Reset camera
       const camBaseZ = this.cameraBaseZ !== undefined ? this.cameraBaseZ : 7.5;
@@ -2863,21 +3120,34 @@
     }
 
     spawnHeartFountain() {
-      // Three.js 3D floating hearts
-      const heartMat = new THREE.MeshBasicMaterial({ color: 0xff4d6d });
-      for (let i = 0; i < 25; i++) {
-        const heartMesh = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8, 8), heartMat);
+      // Three.js 3D floating hearts in dual red & blue
+      const blueMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const redMat = new THREE.MeshBasicMaterial({ color: 0xff2a5f });
+      const blueHeartGeom = this.createHeartGeometry(0.24, 0.06);
+      const redHeartGeom = this.createHeartGeometry(0.24, 0.06);
+
+      for (let i = 0; i < 30; i++) {
+        const isBlue = i % 2 === 0;
+        const geom = isBlue ? blueHeartGeom : redHeartGeom;
+        const mat = isBlue ? blueMat : redMat;
+        const heartMesh = new THREE.Mesh(geom, mat);
         heartMesh.position.set(
           (Math.random() - 0.5) * 4,
           1.5 + Math.random() * 2,
           -TOTAL_DISTANCE + (Math.random() - 0.5) * 3
         );
+        heartMesh.rotation.set(
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+          Math.random() * Math.PI
+        );
         this.scene.add(heartMesh);
         this.particles.push({
           mesh: heartMesh,
-          vy: 2.5 + Math.random() * 2.5,
+          vy: 2.2 + Math.random() * 2.2,
           vx: (Math.random() - 0.5) * 1.5,
-          life: 3.0
+          rotSpeed: (Math.random() - 0.5) * 3.0,
+          life: 3.2
         });
       }
     }
@@ -2981,6 +3251,18 @@
               this.girlHairCascade.rotation.x = -0.22 + Math.sin(this.hugTimer * 3.6) * 0.08;
               this.girlHairCascade.rotation.z = 0.12 + Math.sin(this.hugTimer * 2.8) * 0.06;
             }
+          }
+
+          if (this.girlBlueHeart) this.girlBlueHeart.visible = true;
+          if (this.girlBlueLight) this.girlBlueLight.visible = true;
+          // Reveal and float United Red & Blue Heart above the embrace
+          if (this.unitedEmbraceHeart) {
+            this.unitedEmbraceHeart.visible = true;
+            const rise = Math.min(1.0, this.hugTimer / 1.5);
+            this.unitedEmbraceHeart.position.y = 2.1 + rise * 0.7 + Math.sin(this.hugTimer * 3.0) * 0.08;
+            this.unitedEmbraceHeart.rotation.y = Math.sin(this.hugTimer * 1.5) * 0.35;
+            const pulse = 1.0 + Math.sin(this.hugTimer * 4.5) * 0.08;
+            this.unitedEmbraceHeart.scale.set(pulse, pulse, pulse);
           }
 
           // 3. Gentle Ocean Waves lapping on wet sand
@@ -3242,6 +3524,18 @@
         });
       }
 
+      // Animate Destination Scene Hearts
+      if (this.archUnitedHeart) {
+        this.archUnitedHeart.rotation.y += dt * 0.6;
+      }
+      if (this.girlBlueHeart) {
+        const t = performance.now() * 0.0025;
+        this.girlBlueHeart.position.y = 1.6 + Math.sin(t * 2.2) * 0.12;
+        this.girlBlueHeart.rotation.y += dt * 1.4;
+        const bPulse = 1.0 + Math.sin(t * 3.2) * 0.07;
+        this.girlBlueHeart.scale.set(bPulse, bPulse, bPulse);
+      }
+
       // Milestone: Finish Line reached!
       if (this.playerZ <= -TOTAL_DISTANCE && this.state === 'PLAYING') {
         this.triggerVictory();
@@ -3253,6 +3547,7 @@
         p.life -= dt;
         p.mesh.position.y += p.vy * dt;
         p.mesh.position.x += p.vx * dt;
+        if (p.rotSpeed) p.mesh.rotation.y += p.rotSpeed * dt;
         p.mesh.scale.multiplyScalar(0.98);
 
         if (p.life <= 0) {
@@ -3294,7 +3589,15 @@
   }
 
   // --- BOOTSTRAP WHEN DOM IS READY ---
-  window.addEventListener('DOMContentLoaded', () => {
-    window.gameInstance = new JourneyGame();
-  });
+  function initGameInstance() {
+    if (!window.gameInstance) {
+      window.gameInstance = new JourneyGame();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', initGameInstance);
+  } else {
+    initGameInstance();
+  }
 })();

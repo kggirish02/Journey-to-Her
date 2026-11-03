@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0f172a">
-  <title>The Journey to Her ❤️ — 3D Cinematic Adventure Game</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+  <title>The Journey to Her 💙 — 3D Cinematic Adventure Game</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>">
   <meta name="description"
     content="A romantic 3D runner adventure game: help the boy run through magical paths, collect golden coins, overcome obstacles, and reach the girl waiting for him!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +18,13 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Three.js 3D Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Three.js 3D Library (Local offline bundle with CDN fallback) -->
+  <script src="assets/js/three.min.js"></script>
+  <script>
+    if (typeof THREE === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+    }
+  </script>
 </head>
 
 <body>
@@ -38,8 +43,8 @@
   <!-- Girl Calling Dialogue Callout (When near destination ~10-15m) -->
   <div id="girl-callout" class="girl-callout hidden">
     <div class="girl-callout-bubble">
-      <span class="callout-emoji">👧💖</span>
-      <span class="callout-text">"Ohh my love! Come fast, come fast! ❤️🏃‍♂️"</span>
+      <span class="callout-emoji">👧💙</span>
+      <span class="callout-text">"Ohh my love! Come fast, come fast! 💙🏃‍♂️"</span>
     </div>
   </div>
 
@@ -48,11 +53,11 @@
     <div class="hug-box">
       <div class="hug-line boy-hug">
         <span class="hug-icon">🌅</span>
-        <span class="hug-msg">"I found you by the shore! ❤️"</span>
+        <span class="hug-msg">"I found you by the shore! 💙"</span>
       </div>
       <div class="hug-line girl-hug">
         <span class="hug-icon">🤗</span>
-        <span class="hug-msg">"I knew you'd come for me! ✨"</span>
+        <span class="hug-msg">"Our hearts are one! ❤️💙"</span>
       </div>
     </div>
   </div>
@@ -83,7 +88,7 @@
         <div class="progress-bar-bg">
           <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
         </div>
-        <div class="progress-marker girl-marker">👧❤️</div>
+        <div class="progress-marker girl-marker">👧💙</div>
       </div>
       <div class="progress-info">
         <span id="distance-text">0m / 500m</span>
@@ -146,7 +151,7 @@
     <div class="start-card glass-panel">
       <div class="title-glow-wrap">
         <span class="badge-tag">✨ CINEMATIC 3D ADVENTURE</span>
-        <h1 class="game-title">The Journey to Her <span class="heart-pulse">❤️</span></h1>
+        <h1 class="game-title">The Journey to Her <span class="heart-pulse">💙</span></h1>
       </div>
 
       <p class="story-blurb">
@@ -156,7 +161,7 @@
 
       <!-- Theme Selector -->
       <div class="theme-picker-section">
-        <span class="theme-title">Choose Journey Theme (AI Generated):</span>
+        <span class="theme-title">Choose Journey Theme:</span>
         <div class="theme-options">
           <button class="theme-chip active" data-theme="forest">
             <span class="chip-dot" style="background:#4ade80;"></span>
@@ -227,17 +232,12 @@
         </button>
       </div>
 
-      <div class="bottom-footnote">
-        <span class="footnote-tech">🎮 Built with Three.js & Web Audio API &bull; 🤖 Generative AI Environment Pipeline</span>
-        <div class="copyright-notice">
-          <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
-        </div>
-      </div>
+
     </div>
 
     <!-- Webpage Bottom Copyright Bar -->
     <footer class="screen-bottom-footer">
-      <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
+      <span>&copy; 2026 The Journey to Her 💙 &bull; All Rights Reserved</span>
     </footer>
   </section>
 
@@ -299,7 +299,7 @@
       </div>
 
       <div class="modal-copyright">
-        <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
+        <span>&copy; 2026 The Journey to Her 💙 &bull; All Rights Reserved</span>
       </div>
     </div>
   </section>
@@ -338,7 +338,7 @@
 
       <div class="modal-actions vertical-actions">
         <button id="btn-restart" class="btn-primary pulse-btn">
-          <span>Try Again ❤️</span>
+          <span>Try Again 💔</span>
         </button>
         <button id="btn-gameover-home" class="btn-secondary">
           <span>🏠 Go to Home Page</span>
@@ -346,7 +346,7 @@
       </div>
 
       <div class="modal-copyright">
-        <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
+        <span>&copy; 2026 The Journey to Her 💙 &bull; All Rights Reserved</span>
       </div>
     </div>
   </section>
@@ -358,11 +358,20 @@
 
       <div class="modal-header">
         <div class="victory-icon-wrap">
-          <span class="floating-heart">💖</span>
-          <span class="couple-emojis">👦🤗👧</span>
-          <span class="floating-heart">💖</span>
+          <span class="floating-heart">💙</span>
+          <div class="united-heart-card" id="united-heart-card" title="Click to toggle Neon / Paint style">
+            <div class="united-heart-glow-ring"></div>
+            <img src="assets/images/united_heart_neon.png" alt="Red and Blue United Heart" class="united-heart-img" id="united-heart-img">
+            <div class="united-heart-caption">
+              <span class="caption-tag">❤️ RED &amp; 💙 BLUE UNITED AS ONE</span>
+            </div>
+            <button type="button" class="btn-toggle-heart-style" id="btn-toggle-heart-style" title="Switch Art Style">
+              🔄 Switch Art Style
+            </button>
+          </div>
+          <span class="floating-heart">❤️</span>
         </div>
-        <h2 class="victory-title">Together by the Sunset Shore ❤️🌊</h2>
+        <h2 class="victory-title">Together by the Sunset Shore <span class="emoji-native">❤️💙🌊</span></h2>
         <div class="victory-diff-badge" id="victory-diff-badge">
           <span id="victory-diff-text">🏆 Conquered on 🟡 Medium Mode (1.5x Score Multiplier)</span>
         </div>
@@ -393,7 +402,7 @@
 
       <div class="modal-actions">
         <button id="btn-play-again" class="btn-primary pulse-btn">
-          <span>Play Again ❤️</span>
+          <span>Play Again ❤️💙</span>
         </button>
         <button id="btn-victory-home" class="btn-secondary">
           <span>🏠 Go to Home Page</span>
@@ -401,7 +410,7 @@
       </div>
 
       <div class="modal-copyright">
-        <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
+        <span>&copy; 2026 The Journey to Her 💙 &bull; All Rights Reserved</span>
       </div>
     </div>
   </section>
@@ -481,7 +490,7 @@
       </div>
 
       <div class="modal-copyright">
-        <span>&copy; 2026 The Journey to Her ❤️ &bull; All Rights Reserved</span>
+        <span>&copy; 2026 The Journey to Her 💙 &bull; All Rights Reserved</span>
       </div>
     </div>
   </div>
